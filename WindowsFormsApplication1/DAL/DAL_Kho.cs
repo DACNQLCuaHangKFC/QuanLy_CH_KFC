@@ -340,6 +340,26 @@ namespace WindowsFormsApplication1.DAL
                 }
             }
         }
+        public bool CapNhatTrangThaiTonKhoKho(string maNguyenLieu, string trangThai)
+        {
+            using (SqlConnection connection = dbConnect.GetConnection())
+            {
+                if (connection == null)
+                {
+                    return false; // Trả về false nếu không thể kết nối
+                }
+
+                using (SqlCommand command = new SqlCommand("sp_CapNhatTrangThaiTonKhoKho", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@MaNguyenLieu", maNguyenLieu);
+                    command.Parameters.AddWithValue("@TrangThai", trangThai);
+
+                    int rowsAffected = command.ExecuteNonQuery();
+                    return rowsAffected > 0; // Trả về true nếu cập nhật thành công
+                }
+            }
+        }
         public bool ThemNguyenLieu(string maNguyenLieu, string maLoaiNguyenLieu, string tenNguyenLieu, string maDVT)
         {
             using (SqlConnection connection = dbConnect.GetConnection())

@@ -13,21 +13,46 @@ namespace WindowsFormsApplication1.DAL
     public class DBConnect
     {
         // Chuỗi kết nối tới SQL Server
-        private string connectionString = "Server=JUSTBREN\\SQLEXPRESS;Database=WindowsFormsApplication1;User Id=sa;Password=123;";
-        SqlConnection connection = new SqlConnection(File.ReadAllText("config.env"));
+        //private string connectionString = "Server=JUSTBREN\\SQLEXPRESS;Database=WindowsFormsApplication1;User Id=sa;Password=123;";
+        private readonly string configFilePath;
+
+        // Constructor không có kiểu trả về
+        public DBConnect()
+        {
+            string projectRoot = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory)?.Parent?.Parent?.FullName;
+            configFilePath = Path.Combine(projectRoot, "Config", "config.env");
+        }
+
         // Phương thức mở kết nối
         public SqlConnection GetConnection()
         {
-            SqlConnection connection = new SqlConnection(File.ReadAllText("config.env"));
+            // Kiểm tra nếu file không tồn tại
+            if (!File.Exists(configFilePath))
+            {
+                MessageBox.Show($"Không tìm thấy tệp cấu hình: {configFilePath}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+
+            string connectionString;
             try
             {
-                connection.Open();
-                //MessageBox.Show("Kết nối thành công!");
+                connectionString = File.ReadAllText(configFilePath).Trim();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi kết nối với cơ sở dữ liệu: " + ex.Message);
-                connection = null;  // Đặt null nếu kết nối thất bại
+                MessageBox.Show($"Lỗi khi đọc tệp cấu hình: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+
+            SqlConnection connection = new SqlConnection(connectionString);
+            try
+            {
+                connection.Open();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi kết nối với cơ sở dữ liệu: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                connection = null; // Đặt null nếu kết nối thất bại
             }
 
             return connection;
@@ -45,6 +70,7 @@ namespace WindowsFormsApplication1.DAL
 
         public void Close()
         {
+            SqlConnection connection = new SqlConnection();
             if (connection.State == ConnectionState.Open)
             {
                 connection.Close();

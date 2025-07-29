@@ -12,15 +12,38 @@ namespace WindowsFormsApplication1.DAL
     {
         public static bool kiemTraKetNoi()
         {
-            SqlConnection conn = new SqlConnection(File.ReadAllText("config.env"));
+            string projectRoot = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory)?.Parent?.Parent?.FullName;
+            string configFilePath = Path.Combine(projectRoot, "Config", "config.env");
+
+            if (!File.Exists(configFilePath))
+            {
+                Console.WriteLine($"Không tìm thấy tệp cấu hình tại: {configFilePath}");
+                return false;
+            }
+
+            string connectionString;
             try
             {
-                conn.Open();
-                return true;
+                connectionString = File.ReadAllText(configFilePath).Trim();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine($"Lỗi khi đọc tệp cấu hình: {ex.Message}");
                 return false;
+            }
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Lỗi khi kết nối với cơ sở dữ liệu: {ex.Message}");
+                    return false;
+                }
             }
         }
     }

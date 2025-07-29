@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Octokit.Internal;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -24,6 +25,8 @@ namespace WindowsFormsApplication1
             InitializeComponent();
             LoadDgvBep();
             InitializeComboBox();
+            InitializedgvHD();
+            InitializedgvCTHD();
         }
         private void LoadDgvBep()
         {
@@ -38,6 +41,59 @@ namespace WindowsFormsApplication1
             dgvBep.Columns["MaLoaiNguyenLieu"].Visible = false;
             dgvBep.Columns["MaDVT"].Visible = false;
         }
+        
+        private void InitializedgvHD()
+        {
+            // Clear existing columns
+            dgvHoaDonThanHToan.AutoGenerateColumns = false; // Disable auto-generating columns
+            dgvHoaDonThanHToan.Columns.Clear();
+
+            // Add columns programmatically
+            dgvHoaDonThanHToan.Columns.Add(new DataGridViewTextBoxColumn { Name = "MaHoaDon", HeaderText = "Mã Hóa Đơn", DataPropertyName = "MaHoaDon" });
+            dgvHoaDonThanHToan.Columns.Add(new DataGridViewTextBoxColumn { Name = "NgayThanhToan", HeaderText = "Ngày Thanh Toán", DataPropertyName = "NgayThanhToan" });
+            dgvHoaDonThanHToan.Columns.Add(new DataGridViewTextBoxColumn { Name = "TongTien", HeaderText = "Tổng Tiền", DataPropertyName = "TongTien" });
+            dgvHoaDonThanHToan.Columns.Add(new DataGridViewTextBoxColumn { Name = "TrangThai", HeaderText = "Trạng Thái", DataPropertyName = "TrangThai" });
+
+            // You can customize further column properties here if needed (like formatting)
+        }
+        //private void InitializedgvCTHD()
+        //{
+        //    // Xóa tất cả các cột hiện tại (nếu có)
+        //    dgvChiTietHDTT.Columns.Clear();
+        //    dgvChiTietHDTT.Columns.Add("MaHoaDon", "Mã Hóa Đơn");
+        //    dgvChiTietHDTT.Columns.Add("MaMonAn", "Mã Món Ăn");
+        //    dgvChiTietHDTT.Columns.Add("MaComBo", "Mã Combo");
+        //    dgvChiTietHDTT.Columns.Add("SoLuong", "Số Lượng");
+        //    dgvChiTietHDTT.Columns.Add("TrangThai", "Trạng Thái");
+        //    dgvChiTietHDTT.Columns.Add("TenMonAn", "Tên Món Ăn");
+        //    dgvChiTietHDTT.Columns.Add("TenComBo", "Tên Combo");
+        //    dgvChiTietHDTT.Columns.Add("GiaMonAn", "Giá Món Ăn");
+        //    dgvChiTietHDTT.Columns.Add("GiaCombo", "Giá Combo");
+
+        //    // Bạn có thể tùy chỉnh thêm thuộc tính cho các cột ở đây nếu cần
+        //}
+        private void InitializedgvCTHD()
+        {
+            // Disable auto-generating columns
+            dgvChiTietHDTT.AutoGenerateColumns = false;
+
+            // Clear existing columns
+            dgvChiTietHDTT.Columns.Clear();
+
+            // Add columns with appropriate DataPropertyName
+            dgvChiTietHDTT.Columns.Add(new DataGridViewTextBoxColumn { Name = "MaHoaDon", HeaderText = "Mã Hóa Đơn", DataPropertyName = "MaHoaDon" });
+            dgvChiTietHDTT.Columns.Add(new DataGridViewTextBoxColumn { Name = "MaMonAn", HeaderText = "Mã Món Ăn", DataPropertyName = "MaMonAn" });
+            dgvChiTietHDTT.Columns.Add(new DataGridViewTextBoxColumn { Name = "MaComBo", HeaderText = "Mã Combo", DataPropertyName = "MaCombo" });
+            dgvChiTietHDTT.Columns.Add(new DataGridViewTextBoxColumn { Name = "SoLuong", HeaderText = "Số Lượng", DataPropertyName = "SoLuong" });
+            dgvChiTietHDTT.Columns.Add(new DataGridViewTextBoxColumn { Name = "TrangThai", HeaderText = "Trạng Thái", DataPropertyName = "TrangThai" });
+            dgvChiTietHDTT.Columns.Add(new DataGridViewTextBoxColumn { Name = "TenMonAn", HeaderText = "Tên Món Ăn", DataPropertyName = "TenMonAn" });
+            dgvChiTietHDTT.Columns.Add(new DataGridViewTextBoxColumn { Name = "TenComBo", HeaderText = "Tên Combo", DataPropertyName = "TenCombo" });
+            dgvChiTietHDTT.Columns.Add(new DataGridViewTextBoxColumn { Name = "GiaMonAn", HeaderText = "Giá Món Ăn", DataPropertyName = "GiaMonAn" });
+            dgvChiTietHDTT.Columns.Add(new DataGridViewTextBoxColumn { Name = "GiaCombo", HeaderText = "Giá Combo", DataPropertyName = "GiaCombo" });
+
+            // Customize column properties if necessary
+        }
+
 
         private void frmBep_Load(object sender, EventArgs e)
         {
@@ -182,13 +238,6 @@ namespace WindowsFormsApplication1
             }
         }
 
-        private void btnTroVe_Click(object sender, EventArgs e)
-        {
-            frmKho frmKho = new frmKho();
-            this.Hide();
-            frmKho.ShowDialog();
-            this.Show();
-        }
         private void LoadFilteredData()
         {
             DateTime selectedDate = dtpNgayThanhToan.Value;
@@ -196,6 +245,15 @@ namespace WindowsFormsApplication1
 
             DataTable dt = BUS_Kho.GetHoaDonFiltered(selectedDate, status);
             dgvHoaDonThanHToan.DataSource = dt;
+            //foreach (DataRow row in dt.Rows)
+            //{
+            //    int rowIndex = dgvHoaDonThanHToan.Rows.Add();  // Add a new row to the DataGridView
+            //    dgvHoaDonThanHToan.Rows[rowIndex].Cells["MaHoaDon"].Value = row["MaHoaDon"];
+            //    dgvHoaDonThanHToan.Rows[rowIndex].Cells["NgayThanhToan"].Value = row["NgayThanhToan"];
+            //    dgvHoaDonThanHToan.Rows[rowIndex].Cells["TongTien"].Value = row["TongTien"];
+            //    dgvHoaDonThanHToan.Rows[rowIndex].Cells["TrangThai"].Value = row["TrangThai"];
+            //}
+
         }
         
         private void InitializeComboBox()
@@ -286,5 +344,11 @@ namespace WindowsFormsApplication1
                 MessageBox.Show("Vui lòng chọn một chi tiết hóa đơn để xác nhận.");
             }
         }
+
+        private void btnQuaylai_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
+        }
+
     }
 }

@@ -13,13 +13,15 @@ namespace WindowsFormsApplication1
     {
         GoiMonBUS busGoiMon = new GoiMonBUS();
         HoaDonBUS busHoaDon = new HoaDonBUS();
+        KhachHangBUS busKhachHang = new KhachHangBUS();
         private List<KhachHangDTO> danhSachKhachHangGoc;
-        public frmDatMon()
+        private string maNV;
+        public frmDatMon(string maNV)
         {
             InitializeComponent();
             btnInHoaDon.Enabled = false;
+            this.maNV = maNV;
         }
-
 
         private void frmDatMon_Load(object sender, EventArgs e)
         {
@@ -68,7 +70,7 @@ namespace WindowsFormsApplication1
             LoadDanhSachMonAnConBan();
             LoadCotdgvDanhSachMonChon();
             LoadCboKhachHang();
-            
+
         }
         private void LoadMaKhuyenMaiConHan()
         {
@@ -201,7 +203,7 @@ namespace WindowsFormsApplication1
                 int soLuongCoTheBan = Convert.ToInt32(dgvChonMon.SelectedRows[0].Cells["SoLuongCoTheBan"].Value);
 
                 // Lấy số lượng từ txtSoLuong
-                if (int.TryParse(txtSoLuong.Text, out int soLuong)&&soLuong>0)
+                if (int.TryParse(txtSoLuong.Text, out int soLuong) && soLuong > 0)
                 {
                     // Kiểm tra số lượng có lớn hơn số lượng có thể bán không
                     if (soLuong > soLuongCoTheBan)
@@ -223,7 +225,7 @@ namespace WindowsFormsApplication1
                             {
                                 MessageBox.Show("Số lượng không thể lớn hơn số lượng có thể bán.");
                                 return;
-                            }    
+                            }
                             row.Cells["SoLuong"].Value = soLuongHienTai + soLuong;
                             monAnDaTonTai = true;
                             break;
@@ -416,11 +418,11 @@ namespace WindowsFormsApplication1
             string tuKhoa = txtTimKhachHang.Text.Trim().ToLower();
             List<KhachHangDTO> danhSachHienThi = new List<KhachHangDTO>();
 
-            
+
             if (string.IsNullOrEmpty(tuKhoa))
             {
                 danhSachHienThi = new List<KhachHangDTO>(danhSachKhachHangGoc);
-                
+
             }
             else
             {
@@ -445,7 +447,7 @@ namespace WindowsFormsApplication1
                 string maKhuyenMai = cboMaKhuyenMai.SelectedValue.ToString();
 
                 // Gọi hàm để lấy phần trăm khuyến mãi từ cơ sở dữ liệu
-                float phanTramKhuyenMai =busGoiMon.LayPhanTramKhuyenMai(maKhuyenMai);
+                float phanTramKhuyenMai = busGoiMon.LayPhanTramKhuyenMai(maKhuyenMai);
 
                 // Hiển thị phần trăm giảm giá vào txtGiamGia
                 txtGiamGia.Text = phanTramKhuyenMai.ToString("F2") + "%";
@@ -455,24 +457,6 @@ namespace WindowsFormsApplication1
             {
                 // Nếu không có mục nào được chọn, set txtGiamGia là rỗng
                 txtGiamGia.Text = string.Empty;
-            }
-        }
-
-        private void txtKhachDua_TextChanged(object sender, EventArgs e)
-        {
-            decimal result;
-
-            if (!decimal.TryParse(txtKhachDua.Text, out result))
-            {
-                // Nếu không phải là số hợp lệ, hiển thị thông báo hoặc xử lý theo ý muốn
-                MessageBox.Show("Vui lòng nhập một số hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtKhachDua.Clear();
-                txtTienThoi.Clear();
-                return;
-            }
-            else
-            {
-                txtTienThoi.Text =(result-decimal.Parse(txtThanhTien.Text.ToString())).ToString();
             }
         }
 
@@ -493,7 +477,7 @@ namespace WindowsFormsApplication1
                 phuongThucThanhToan = "Tiền Mặt";
             }
 
-            string maNV = "NV001";
+            //string maNV = "NV001";
             string sdt;
             if (cboKhachHang.SelectedItem != null)
             {
@@ -515,10 +499,10 @@ namespace WindowsFormsApplication1
             }
             else
             {
-                
+
             }
             // Lưu hóa đơn
-            bool hoaDonLuuThanhCong = busGoiMon.LuuHoaDon(maHoaDonMoi, maNV, sdt,"BA000", maKhuyenMai, ngayLap, thanhTien, phuongThucThanhToan); ;
+            bool hoaDonLuuThanhCong = busGoiMon.LuuHoaDon(maHoaDonMoi, maNV, sdt, "BA000", maKhuyenMai, ngayLap, thanhTien, phuongThucThanhToan); ;
 
             if (hoaDonLuuThanhCong)
             {
@@ -540,7 +524,7 @@ namespace WindowsFormsApplication1
                     if (MaMonAn.StartsWith("MA"))
                     {
                         // Lưu chi tiết hóa đơn kiểu khác cho món ăn
-                        bool chiTietLuuThanhCong = busGoiMon.LuuChiTietHoaDon(maHoaDonMoi,MaMonAn, "CB000", soLuong,"Chờ thực hiện");
+                        bool chiTietLuuThanhCong = busGoiMon.LuuChiTietHoaDon(maHoaDonMoi, MaMonAn, "CB000", soLuong, "Chờ thực hiện");
                         if (!chiTietLuuThanhCong)
                         {
                             MessageBox.Show("Lưu chi tiết hóa đơn món ăn thất bại!");
@@ -550,7 +534,7 @@ namespace WindowsFormsApplication1
                     else if (MaMonAn.StartsWith("CB"))
                     {
                         // Lưu chi tiết hóa đơn kiểu khác cho combo
-                        bool chiTietLuuThanhCong = busGoiMon.LuuChiTietHoaDon(maHoaDonMoi,"MA000",MaMonAn,soLuong, "Chờ thực hiện");
+                        bool chiTietLuuThanhCong = busGoiMon.LuuChiTietHoaDon(maHoaDonMoi, "MA000", MaMonAn, soLuong, "Chờ thực hiện");
                         if (!chiTietLuuThanhCong)
                         {
                             MessageBox.Show("Lưu chi tiết hóa đơn combo thất bại!");
@@ -566,7 +550,7 @@ namespace WindowsFormsApplication1
                 LoadDanhSachMonAnConBan();
                 // Xóa tất cả dữ liệu trong DataGridView
                 dgvDanhSachMonChon.Rows.Clear();
-                if (chkSuDung.Checked==true && sdt != "0000000000")
+                if (chkSuDung.Checked == true && sdt != "0000000000")
                 {
                     busGoiMon.CaiLaiDiemTichLuyChoKhachHang(sdt);
                 }
@@ -580,7 +564,9 @@ namespace WindowsFormsApplication1
                 }
 
                 //SetToDefault();
+                btnLuu.Enabled = false;
                 btnInHoaDon.Enabled = true;
+                btnThemMon.Enabled = false;
             }
             else
             {
@@ -590,24 +576,19 @@ namespace WindowsFormsApplication1
 
         private void btnInHoaDon_Click(object sender, EventArgs e)
         {
-            if ((txtKhachDua.Text != "" && chkChuyenKhoan.Checked==false) || chkChuyenKhoan.Checked == true)
-            {
-                string maHoaDonMoiNhat = busGoiMon.GetLatestInvoice();
-                DataSet dulieu = LoadInvoiceReport(maHoaDonMoiNhat);
-                frmHoaDon frm = new frmHoaDon(dulieu);
-                frm.ShowDialog();
-                btnInHoaDon.Enabled = false;
-            }
-            else
-            {
-                MessageBox.Show("Cần nhập số tiền khách đưa");
-                return;
-            }    
+            string maHoaDonMoiNhat = busGoiMon.GetLatestInvoice();
+            DataSet dulieu = LoadInvoiceReport(maHoaDonMoiNhat);
+            frmHoaDon frm = new frmHoaDon(dulieu);
+            frm.ShowDialog();
+            btnInHoaDon.Enabled = false;
+            btnLuu.Enabled = true;
+            btnThemMon.Enabled = true;
+            ClearInputFields();
         }
         private DataSet LoadInvoiceReport(string maHoaDon)
         {
             // Hiển thị tổng tiền chưa có khuyến mãi
-            decimal totalMoney=decimal.Parse(txtThanhTien.Text.Replace(",", "").Trim());
+            decimal totalMoney = decimal.Parse(txtThanhTien.Text.Replace(",", "").Trim());
             decimal discountPercent = 0;
             decimal discountAmount = 0;
             // Loại bỏ dấu phần trăm và chuyển đổi thành decimal
@@ -649,8 +630,6 @@ namespace WindowsFormsApplication1
                 invoiceInfo.Columns.Add("Discount", typeof(decimal));
                 invoiceInfo.Columns.Add("UsedPoints", typeof(int));
                 invoiceInfo.Columns.Add("FinalAmount", typeof(decimal));
-                invoiceInfo.Columns.Add("CustomerPaid", typeof(decimal));
-                invoiceInfo.Columns.Add("Change", typeof(decimal));
                 invoiceInfo.Columns.Add("ReceivedPoints", typeof(int));
                 invoiceInfo.Columns.Add("Date", typeof(string));
                 invoiceInfo.Columns.Add("QRCode", typeof(byte[]));
@@ -671,13 +650,11 @@ namespace WindowsFormsApplication1
                                    discountAmount.ToString("N0"),
                                    lblSoDiem.Text.ToString(),
                                    dulieu.InvoiceDetails.Total,
-                                   txtKhachDua.Text.Replace(",", "").Trim(),
-                                   txtTienThoi.Text.Replace(",", "").Trim(),
                                    soDiem,
                                    DateTime.Now.ToString()
                                );
                     }
-                   else
+                    else
                     {
                         invoiceInfo.Rows.Add(
                                    dulieu.InvoiceDetails.EmployeeName,
@@ -688,12 +665,10 @@ namespace WindowsFormsApplication1
                                    discountAmount.ToString("N0"),
                                    lblSoDiem.Text.ToString(),
                                    dulieu.InvoiceDetails.Total,
-                                   "0",
-                                   "0",
                                    soDiem,
                                    DateTime.Now.ToString()
                                );
-                    }    
+                    }
                 }
                 else
                 {
@@ -708,12 +683,10 @@ namespace WindowsFormsApplication1
                                    discountAmount.ToString("N0"),
                                    "0",
                                    dulieu.InvoiceDetails.Total,
-                                   txtKhachDua.Text.Replace(",", "").Trim(),
-                                   txtTienThoi.Text.Replace(",", "").Trim(),
                                    soDiem,
                                    DateTime.Now.ToString()
                                );
-                    }    
+                    }
                     else
                     {
                         invoiceInfo.Rows.Add(
@@ -725,12 +698,10 @@ namespace WindowsFormsApplication1
                                   discountAmount.ToString("N0"),
                                   "0",
                                   dulieu.InvoiceDetails.Total,
-                                  "0,0",
-                                  "0",
                                   soDiem,
                                   DateTime.Now.ToString()
                               );
-                    }    
+                    }
                 }
                 // Tạo DataSet và thêm các DataTable vào
                 DataSet invoiceDataSet = new DataSet();
@@ -742,7 +713,7 @@ namespace WindowsFormsApplication1
             {
                 MessageBox.Show("Không có dữ liệu hóa đơn");
                 return null;
-            }    
+            }
             // Thêm dữ liệu vào DataTable
             //invoiceDetails.Rows.Add("Fried Chicken", 2, 150.00, 300.00);
             //invoiceDetails.Rows.Add("Burger", 1, 50.00, 50.00);
@@ -750,7 +721,7 @@ namespace WindowsFormsApplication1
             // Thêm dữ liệu vào DataTable thông tin hóa đơn
             //invoiceInfo.Rows.Add("John Doe", "Cash", "HD001", 350.00, 35.00, 0.00, 10, 375.00, 400.00, 25.00, 5, DateTime.Now.ToString());
 
-            
+
         }
 
         private void cboLoaiMon_SelectedIndexChanged(object sender, EventArgs e)
@@ -760,7 +731,90 @@ namespace WindowsFormsApplication1
 
         private void btnThemKhachHang_Click(object sender, EventArgs e)
         {
-            
+            if (!IsInputValid())
+                return;
+
+            try
+            {
+                // Lấy số điện thoại từ input
+                string soDienThoai = txtSDTTao.Text;
+
+                // Kiểm tra xem số điện thoại đã tồn tại chưa
+                if (busKhachHang.IsSoDienThoaiTonTai(soDienThoai))
+                {
+                    MessageBox.Show("Số điện thoại này đã tồn tại trong hệ thống. Vui lòng kiểm tra lại!");
+                    return;
+                }
+
+                // Hỏi xác nhận người dùng
+                DialogResult result = MessageBox.Show(
+                    $"Bạn có chắc chắn muốn thêm khách hàng với số điện thoại {soDienThoai} không?",
+                    "Xác nhận thêm khách hàng",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                // Nếu người dùng chọn "No", thoát khỏi hàm
+                if (result == DialogResult.No)
+                    return;
+
+                // Nếu người dùng chọn "Yes", tiến hành thêm khách hàng
+                if (busKhachHang.AddKhachHangWithDefaultDiemTichLuy(txtSDTTao.Text, txtHoTenTao.Text))
+                {
+                    MessageBox.Show("Thêm khách hàng thành công!");
+                    LoadCboKhachHang(); // Refresh danh sách khách hàng
+                    ClearInputFields(); // Xóa dữ liệu input
+                }
+                else
+                {
+                    MessageBox.Show("Thêm khách hàng thất bại!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message);
+            }
+        }
+
+        private void ClearInputFields()
+        {
+            txtSDTTao.Text = "";
+            txtHoTenTao.Text = "";
+            txtTimKhachHang.Text = "";
+            txtSoLuong.Text = "";
+            cboKhachHang.SelectedIndex = 0;
+            cboMaKhuyenMai.SelectedIndex = 0;
+            chkChuyenKhoan.Checked = false;
+            chkSuDung.Checked = false;
+        }
+        private bool IsInputValid()
+        {
+            if (string.IsNullOrWhiteSpace(txtSDTTao.Text) || !IsValidPhoneNumber(txtSDTTao.Text))
+            {
+                MessageBox.Show("Số điện thoại không hợp lệ! Vui lòng nhập số có từ 10-15 chữ số.");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtHoTenTao.Text))
+            {
+                MessageBox.Show("Tên khách hàng không được để trống!");
+                return false;
+            }
+            return true;
+        }
+        private bool IsValidPhoneNumber(string phoneNumber)
+        {
+            // Loại bỏ khoảng trắng và định dạng khác
+            phoneNumber = phoneNumber.Trim();
+
+            // Biểu thức chính quy kiểm tra số điện thoại hợp lệ ở Việt Nam
+            string pattern = @"^(0|\+84)(3[2-9]|5[6|8|9]|7[0|6-9]|8[1-5|8|9]|9[0-9])\d{7}$";
+            return System.Text.RegularExpressions.Regex.IsMatch(phoneNumber, pattern);
+        }
+
+        private void frmDatMon_FormClosing(object sender, FormClosingEventArgs e)
+        {
+           
         }
     }
 }

@@ -32,30 +32,27 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtMadoanhthu = new System.Windows.Forms.TextBox();
             this.btnThem = new System.Windows.Forms.Button();
-            this.txtTongdoanhthu = new System.Windows.Forms.TextBox();
             this.lblDoanhthu = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.dgrvDoanhthu = new System.Windows.Forms.DataGridView();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dtpNgaydt = new System.Windows.Forms.DateTimePicker();
             this.btnThongke = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnXoakettoan = new System.Windows.Forms.Button();
             this.txtDoanhthu = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.dgrvKettoan = new System.Windows.Forms.DataGridView();
-            this.dtpNgaykt = new System.Windows.Forms.DateTimePicker();
-            this.btnKettoanngay = new System.Windows.Forms.Button();
-            this.cboCa = new System.Windows.Forms.ComboBox();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnXoakettoan = new System.Windows.Forms.Button();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txtTimkiem = new System.Windows.Forms.TextBox();
+            this.dtpNgaykt = new System.Windows.Forms.DateTimePicker();
+            this.btnKettoanngay = new System.Windows.Forms.Button();
+            this.cboCa = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgrvDoanhthu)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -64,20 +61,18 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.txtTimkiem);
             this.groupBox1.Controls.Add(this.txtMadoanhthu);
             this.groupBox1.Controls.Add(this.btnThem);
-            this.groupBox1.Controls.Add(this.txtTongdoanhthu);
             this.groupBox1.Controls.Add(this.lblDoanhthu);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.dgrvDoanhthu);
             this.groupBox1.Controls.Add(this.dtpNgaydt);
             this.groupBox1.Controls.Add(this.btnThongke);
-            this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.ForeColor = System.Drawing.Color.Red;
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(482, 494);
+            this.groupBox1.Size = new System.Drawing.Size(512, 494);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Doanh thu";
@@ -92,9 +87,9 @@
             // 
             // btnThem
             // 
-            this.btnThem.BackColor = System.Drawing.Color.Red;
+            this.btnThem.BackColor = System.Drawing.SystemColors.Control;
             this.btnThem.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnThem.ForeColor = System.Drawing.Color.White;
+            this.btnThem.ForeColor = System.Drawing.Color.Black;
             this.btnThem.Location = new System.Drawing.Point(10, 426);
             this.btnThem.Name = "btnThem";
             this.btnThem.Size = new System.Drawing.Size(113, 48);
@@ -103,20 +98,12 @@
             this.btnThem.UseVisualStyleBackColor = false;
             this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
             // 
-            // txtTongdoanhthu
-            // 
-            this.txtTongdoanhthu.Enabled = false;
-            this.txtTongdoanhthu.Location = new System.Drawing.Point(126, 143);
-            this.txtTongdoanhthu.Name = "txtTongdoanhthu";
-            this.txtTongdoanhthu.Size = new System.Drawing.Size(200, 27);
-            this.txtTongdoanhthu.TabIndex = 99;
-            // 
             // lblDoanhthu
             // 
             this.lblDoanhthu.AutoSize = true;
             this.lblDoanhthu.Location = new System.Drawing.Point(2, 40);
             this.lblDoanhthu.Name = "lblDoanhthu";
-            this.lblDoanhthu.Size = new System.Drawing.Size(101, 20);
+            this.lblDoanhthu.Size = new System.Drawing.Size(106, 20);
             this.lblDoanhthu.TabIndex = 98;
             this.lblDoanhthu.Text = "Mã doanh thu";
             // 
@@ -125,18 +112,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(0, 99);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(102, 20);
+            this.label2.Size = new System.Drawing.Size(106, 20);
             this.label2.TabIndex = 97;
             this.label2.Text = "Ngày kết toán";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 150);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(114, 20);
-            this.label1.TabIndex = 96;
-            this.label1.Text = "Tổng doanh thu";
             // 
             // dgrvDoanhthu
             // 
@@ -154,6 +132,30 @@
             this.dgrvDoanhthu.TabIndex = 95;
             this.dgrvDoanhthu.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgrvDoanhthu_CellClick);
             // 
+            // Column4
+            // 
+            this.Column4.DataPropertyName = "MaDoanhThu";
+            this.Column4.HeaderText = "Mã doanh thu";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.Width = 120;
+            // 
+            // Column5
+            // 
+            this.Column5.DataPropertyName = "NgayKetToan";
+            this.Column5.HeaderText = "Ngày kết toán";
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            this.Column5.Width = 120;
+            // 
+            // Column6
+            // 
+            this.Column6.DataPropertyName = "TongDoanhThu";
+            this.Column6.HeaderText = "Tổng doanh thu";
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            this.Column6.Width = 120;
+            // 
             // dtpNgaydt
             // 
             this.dtpNgaydt.Format = System.Windows.Forms.DateTimePickerFormat.Short;
@@ -165,9 +167,9 @@
             // 
             // btnThongke
             // 
-            this.btnThongke.BackColor = System.Drawing.Color.Red;
+            this.btnThongke.BackColor = System.Drawing.SystemColors.Control;
             this.btnThongke.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnThongke.ForeColor = System.Drawing.Color.White;
+            this.btnThongke.ForeColor = System.Drawing.Color.Black;
             this.btnThongke.Location = new System.Drawing.Point(160, 426);
             this.btnThongke.Name = "btnThongke";
             this.btnThongke.Size = new System.Drawing.Size(113, 48);
@@ -187,13 +189,27 @@
             this.groupBox2.Controls.Add(this.dtpNgaykt);
             this.groupBox2.Controls.Add(this.btnKettoanngay);
             this.groupBox2.Controls.Add(this.cboCa);
-            this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.ForeColor = System.Drawing.Color.Red;
             this.groupBox2.Location = new System.Drawing.Point(530, 12);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(482, 494);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Kết toán ngày";
+            // 
+            // btnXoakettoan
+            // 
+            this.btnXoakettoan.BackColor = System.Drawing.SystemColors.Control;
+            this.btnXoakettoan.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnXoakettoan.ForeColor = System.Drawing.Color.Black;
+            this.btnXoakettoan.Location = new System.Drawing.Point(184, 426);
+            this.btnXoakettoan.Name = "btnXoakettoan";
+            this.btnXoakettoan.Size = new System.Drawing.Size(113, 48);
+            this.btnXoakettoan.TabIndex = 100;
+            this.btnXoakettoan.Text = "XÓA KẾT TOÁN";
+            this.btnXoakettoan.UseVisualStyleBackColor = false;
+            this.btnXoakettoan.Click += new System.EventHandler(this.btnXoakettoan_Click);
             // 
             // txtDoanhthu
             // 
@@ -218,7 +234,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(0, 99);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(106, 20);
+            this.label4.Size = new System.Drawing.Size(111, 20);
             this.label4.TabIndex = 97;
             this.label4.Text = "Ngày thống kê";
             // 
@@ -227,7 +243,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(6, 150);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(78, 20);
+            this.label5.Size = new System.Drawing.Size(82, 20);
             this.label5.TabIndex = 96;
             this.label5.Text = "Doanh thu";
             // 
@@ -246,35 +262,6 @@
             this.dgrvKettoan.Size = new System.Drawing.Size(454, 205);
             this.dgrvKettoan.TabIndex = 95;
             this.dgrvKettoan.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgrvKettoan_CellClick);
-            // 
-            // dtpNgaykt
-            // 
-            this.dtpNgaykt.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpNgaykt.Location = new System.Drawing.Point(113, 99);
-            this.dtpNgaykt.Name = "dtpNgaykt";
-            this.dtpNgaykt.Size = new System.Drawing.Size(200, 27);
-            this.dtpNgaykt.TabIndex = 94;
-            // 
-            // btnKettoanngay
-            // 
-            this.btnKettoanngay.BackColor = System.Drawing.Color.Red;
-            this.btnKettoanngay.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnKettoanngay.ForeColor = System.Drawing.Color.White;
-            this.btnKettoanngay.Location = new System.Drawing.Point(10, 426);
-            this.btnKettoanngay.Name = "btnKettoanngay";
-            this.btnKettoanngay.Size = new System.Drawing.Size(113, 48);
-            this.btnKettoanngay.TabIndex = 93;
-            this.btnKettoanngay.Text = "KẾT TOÁN NGÀY";
-            this.btnKettoanngay.UseVisualStyleBackColor = false;
-            this.btnKettoanngay.Click += new System.EventHandler(this.btnThongke_Click);
-            // 
-            // cboCa
-            // 
-            this.cboCa.FormattingEnabled = true;
-            this.cboCa.Location = new System.Drawing.Point(113, 37);
-            this.cboCa.Name = "cboCa";
-            this.cboCa.Size = new System.Drawing.Size(200, 28);
-            this.cboCa.TabIndex = 0;
             // 
             // Column1
             // 
@@ -302,50 +289,35 @@
             this.Column3.ReadOnly = true;
             this.Column3.Width = 120;
             // 
-            // btnXoakettoan
+            // dtpNgaykt
             // 
-            this.btnXoakettoan.BackColor = System.Drawing.Color.Red;
-            this.btnXoakettoan.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnXoakettoan.ForeColor = System.Drawing.Color.White;
-            this.btnXoakettoan.Location = new System.Drawing.Point(184, 426);
-            this.btnXoakettoan.Name = "btnXoakettoan";
-            this.btnXoakettoan.Size = new System.Drawing.Size(113, 48);
-            this.btnXoakettoan.TabIndex = 100;
-            this.btnXoakettoan.Text = "XÓA KẾT TOÁN";
-            this.btnXoakettoan.UseVisualStyleBackColor = false;
-            this.btnXoakettoan.Click += new System.EventHandler(this.btnXoakettoan_Click);
+            this.dtpNgaykt.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpNgaykt.Location = new System.Drawing.Point(113, 99);
+            this.dtpNgaykt.Name = "dtpNgaykt";
+            this.dtpNgaykt.Size = new System.Drawing.Size(200, 27);
+            this.dtpNgaykt.TabIndex = 94;
             // 
-            // Column4
+            // btnKettoanngay
             // 
-            this.Column4.DataPropertyName = "MaDoanhThu";
-            this.Column4.HeaderText = "Mã doanh thu";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            this.Column4.Width = 120;
+            this.btnKettoanngay.BackColor = System.Drawing.SystemColors.Control;
+            this.btnKettoanngay.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnKettoanngay.ForeColor = System.Drawing.Color.Black;
+            this.btnKettoanngay.Location = new System.Drawing.Point(10, 426);
+            this.btnKettoanngay.Name = "btnKettoanngay";
+            this.btnKettoanngay.Size = new System.Drawing.Size(113, 48);
+            this.btnKettoanngay.TabIndex = 93;
+            this.btnKettoanngay.Text = "KẾT TOÁN NGÀY";
+            this.btnKettoanngay.UseVisualStyleBackColor = false;
+            this.btnKettoanngay.Click += new System.EventHandler(this.btnThongke_Click);
             // 
-            // Column5
+            // cboCa
             // 
-            this.Column5.DataPropertyName = "NgayKetToan";
-            this.Column5.HeaderText = "Ngày kết toán";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            this.Column5.Width = 120;
-            // 
-            // Column6
-            // 
-            this.Column6.DataPropertyName = "TongDoanhThu";
-            this.Column6.HeaderText = "Tổng doanh thu";
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
-            this.Column6.Width = 120;
-            // 
-            // txtTimkiem
-            // 
-            this.txtTimkiem.Location = new System.Drawing.Point(332, 33);
-            this.txtTimkiem.Name = "txtTimkiem";
-            this.txtTimkiem.Size = new System.Drawing.Size(200, 27);
-            this.txtTimkiem.TabIndex = 102;
-            this.txtTimkiem.TextChanged += new System.EventHandler(this.txtTimkiem_TextChanged);
+            this.cboCa.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboCa.FormattingEnabled = true;
+            this.cboCa.Location = new System.Drawing.Point(113, 37);
+            this.cboCa.Name = "cboCa";
+            this.cboCa.Size = new System.Drawing.Size(200, 28);
+            this.cboCa.TabIndex = 0;
             // 
             // frmThongKeDoanhThu
             // 
@@ -375,9 +347,7 @@
         private System.Windows.Forms.DateTimePicker dtpNgaydt;
         private System.Windows.Forms.Button btnThongke;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblDoanhthu;
-        private System.Windows.Forms.TextBox txtTongdoanhthu;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox txtDoanhthu;
         private System.Windows.Forms.Label label3;
@@ -396,6 +366,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.TextBox txtTimkiem;
     }
 }

@@ -21,8 +21,8 @@ namespace WindowsFormsApplication1.GUI
 
         void lamMoi()
         {
-            txtTendangnhap.Text = "Tên đăng nhập";
-            txtMatkhau.Text = "**********";
+            txtTendangnhap.Text = "";
+            txtMatkhau.Text = "";
         }
 
         private void btnLogin_Click(object sender, EventArgs e)

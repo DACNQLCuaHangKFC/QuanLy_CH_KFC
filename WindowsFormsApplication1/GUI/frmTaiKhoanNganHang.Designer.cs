@@ -128,6 +128,8 @@ namespace WindowsFormsApplication1.GUI
             // 
             // btnXoa
             // 
+            this.btnXoa.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnXoa.ForeColor = System.Drawing.Color.Black;
             this.btnXoa.Location = new System.Drawing.Point(640, 330);
             this.btnXoa.Name = "btnXoa";
             this.btnXoa.Size = new System.Drawing.Size(129, 45);
@@ -138,6 +140,8 @@ namespace WindowsFormsApplication1.GUI
             // 
             // btnThem
             // 
+            this.btnThem.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThem.ForeColor = System.Drawing.Color.Black;
             this.btnThem.Location = new System.Drawing.Point(10, 328);
             this.btnThem.Name = "btnThem";
             this.btnThem.Size = new System.Drawing.Size(129, 45);

@@ -15,12 +15,23 @@ namespace WindowsFormsApplication1.DAL
     class LichLamViecDAL
     {
         private DBConnect db = new DBConnect();
-        public static DataTable hienThiLichLamViec()
+        public DataTable LayLichLamViecTheoNgay(DateTime ngayLamViec)
         {
-            string query = "SELECT * FROM LichLamViec";
-            DBConnect db = new DBConnect();
-            db.Close();
-            return db.TableRead(query);
+            DataTable dt = new DataTable();
+
+            using (SqlConnection connection = db.GetConnection())
+            {
+                SqlCommand cmd = new SqlCommand("sp_LayLichLamViecTheoNgay", connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@NgayLamViec", ngayLamViec);
+
+                using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                {
+                    adapter.Fill(dt);
+                }
+            }
+
+            return dt;
         }
 
 
@@ -122,5 +133,31 @@ namespace WindowsFormsApplication1.DAL
                 return false;
             }
         }
+
+        public bool KiemTraLichLam(string maNhanVien, DateTime ngayLamViec)
+        {
+            try
+            {
+                using (SqlConnection connection = db.GetConnection())
+                {
+                    if (connection == null)
+                    {
+                        return false;
+                    }
+
+                    SqlCommand command = new SqlCommand("sp_KiemTraLichLam", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@MaNhanVien", maNhanVien);
+                    command.Parameters.AddWithValue("@NgayLamViec", ngayLamViec.Date);
+                    object result = command.ExecuteScalar();
+                    return result != null && Convert.ToInt32(result) == 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Lỗi khi kiểm tra lịch làm việc: " + ex.Message);
+            }
+        }
+
     }
 }

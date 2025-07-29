@@ -61,11 +61,13 @@
             this.lab = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.MaNCC = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNguyenLieu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNhaCungCap)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCungUng)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -114,7 +116,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.ForeColor = System.Drawing.Color.Red;
             this.label1.Location = new System.Drawing.Point(23, 224);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(81, 15);
@@ -137,7 +139,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.ForeColor = System.Drawing.Color.Red;
             this.label2.Location = new System.Drawing.Point(23, 20);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(90, 15);
@@ -159,15 +161,13 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.cb_NganHang);
             this.panel1.Controls.Add(this.cmbTTCU);
             this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.btnThem);
-            this.panel1.Controls.Add(this.btnXoa);
             this.panel1.Controls.Add(this.btnCapNhat);
             this.panel1.Controls.Add(this.txtDonGia);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.btnCungUng);
             this.panel1.Controls.Add(this.btnXacNhan);
             this.panel1.Controls.Add(this.btnHuyTao);
             this.panel1.Controls.Add(this.btnTaoMoi);
@@ -210,6 +210,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.Red;
             this.label5.Location = new System.Drawing.Point(284, 394);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(72, 15);
@@ -218,7 +219,7 @@
             // 
             // btnThem
             // 
-            this.btnThem.Location = new System.Drawing.Point(378, 187);
+            this.btnThem.Location = new System.Drawing.Point(101, 15);
             this.btnThem.Name = "btnThem";
             this.btnThem.Size = new System.Drawing.Size(72, 22);
             this.btnThem.TabIndex = 102;
@@ -228,7 +229,7 @@
             // 
             // btnXoa
             // 
-            this.btnXoa.Location = new System.Drawing.Point(468, 149);
+            this.btnXoa.Location = new System.Drawing.Point(194, 15);
             this.btnXoa.Name = "btnXoa";
             this.btnXoa.Size = new System.Drawing.Size(72, 22);
             this.btnXoa.TabIndex = 101;
@@ -256,6 +257,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.Red;
             this.label3.Location = new System.Drawing.Point(34, 394);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(56, 15);
@@ -264,9 +266,9 @@
             // 
             // btnCungUng
             // 
-            this.btnCungUng.Location = new System.Drawing.Point(281, 187);
+            this.btnCungUng.Location = new System.Drawing.Point(9, 15);
             this.btnCungUng.Name = "btnCungUng";
-            this.btnCungUng.Size = new System.Drawing.Size(72, 22);
+            this.btnCungUng.Size = new System.Drawing.Size(72, 26);
             this.btnCungUng.TabIndex = 96;
             this.btnCungUng.Text = "Cung Ứng";
             this.btnCungUng.UseVisualStyleBackColor = true;
@@ -274,9 +276,9 @@
             // 
             // btnXacNhan
             // 
-            this.btnXacNhan.Location = new System.Drawing.Point(468, 187);
+            this.btnXacNhan.Location = new System.Drawing.Point(231, 187);
             this.btnXacNhan.Name = "btnXacNhan";
-            this.btnXacNhan.Size = new System.Drawing.Size(72, 22);
+            this.btnXacNhan.Size = new System.Drawing.Size(72, 23);
             this.btnXacNhan.TabIndex = 95;
             this.btnXacNhan.Text = "Xác Nhận";
             this.btnXacNhan.UseVisualStyleBackColor = true;
@@ -284,7 +286,7 @@
             // 
             // btnHuyTao
             // 
-            this.btnHuyTao.Location = new System.Drawing.Point(378, 151);
+            this.btnHuyTao.Location = new System.Drawing.Point(137, 187);
             this.btnHuyTao.Name = "btnHuyTao";
             this.btnHuyTao.Size = new System.Drawing.Size(72, 22);
             this.btnHuyTao.TabIndex = 94;
@@ -294,7 +296,7 @@
             // 
             // btnTaoMoi
             // 
-            this.btnTaoMoi.Location = new System.Drawing.Point(280, 150);
+            this.btnTaoMoi.Location = new System.Drawing.Point(45, 187);
             this.btnTaoMoi.Name = "btnTaoMoi";
             this.btnTaoMoi.Size = new System.Drawing.Size(72, 23);
             this.btnTaoMoi.TabIndex = 93;
@@ -354,6 +356,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
+            this.label8.ForeColor = System.Drawing.Color.Red;
             this.label8.Location = new System.Drawing.Point(317, 110);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(36, 15);
@@ -363,6 +366,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
+            this.label7.ForeColor = System.Drawing.Color.Red;
             this.label7.Location = new System.Drawing.Point(55, 112);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(72, 15);
@@ -372,6 +376,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.Red;
             this.label6.Location = new System.Drawing.Point(55, 68);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(42, 15);
@@ -381,6 +386,7 @@
             // lab
             // 
             this.lab.AutoSize = true;
+            this.lab.ForeColor = System.Drawing.Color.Red;
             this.lab.Location = new System.Drawing.Point(317, 68);
             this.lab.Name = "lab";
             this.lab.Size = new System.Drawing.Size(35, 15);
@@ -390,6 +396,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.Red;
             this.label4.Location = new System.Drawing.Point(55, 23);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(62, 15);
@@ -399,11 +406,24 @@
             // MaNCC
             // 
             this.MaNCC.AutoSize = true;
+            this.MaNCC.ForeColor = System.Drawing.Color.Red;
             this.MaNCC.Location = new System.Drawing.Point(56, 153);
             this.MaNCC.Name = "MaNCC";
             this.MaNCC.Size = new System.Drawing.Size(55, 15);
             this.MaNCC.TabIndex = 12;
             this.MaNCC.Text = "MaNCC:";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btnThem);
+            this.groupBox1.Controls.Add(this.btnXoa);
+            this.groupBox1.Controls.Add(this.btnCungUng);
+            this.groupBox1.Location = new System.Drawing.Point(320, 171);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(283, 47);
+            this.groupBox1.TabIndex = 106;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Cung Ứng";
             // 
             // frmTaoNhaCungCap
             // 
@@ -414,6 +434,7 @@
             this.Controls.Add(this.panel2);
             this.Font = new System.Drawing.Font("Times New Roman", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "frmTaoNhaCungCap";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmTaoNhaCungCap";
             this.Load += new System.EventHandler(this.frmTaoNhaCungCap_Load);
             this.panel2.ResumeLayout(false);
@@ -423,6 +444,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCungUng)).EndInit();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -462,5 +484,6 @@
         private System.Windows.Forms.ComboBox cmbTTCU;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cb_NganHang;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

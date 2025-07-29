@@ -205,6 +205,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BUS\BanAnBUS.cs" />
     <Compile Include="BUS\BUS_DATHANG.cs" />
     <Compile Include="BUS\BUS_Kho.cs" />
     <Compile Include="BUS\BUS_LichSuXuatKho.cs" />
@@ -218,12 +219,15 @@
     <Compile Include="BUS\HoaDonBUS.cs" />
     <Compile Include="BUS\KhachHangBUS.cs" />
     <Compile Include="BUS\KhuyenMaiBUS.cs" />
+    <Compile Include="BUS\LichLamViecBUS.cs" />
     <Compile Include="BUS\LoaiMonAnBUS.cs" />
     <Compile Include="BUS\LoaiNguyenLieuBUS.cs" />
     <Compile Include="BUS\NganHangBUS.cs" />
     <Compile Include="BUS\NhanVienBUS.cs" />
     <Compile Include="BUS\QuanLyComboBUS.cs" />
     <Compile Include="BUS\QuanLyMonAnBUS.cs" />
+    <Compile Include="BUS\TonKhoBUS.cs" />
+    <Compile Include="DAL\BanAnDAL.cs" />
     <Compile Include="DAL\CaLamDAL.cs" />
     <Compile Include="DAL\ChiTietDoanhThuDAL.cs" />
     <Compile Include="DAL\DAL_DatHang.cs" />
@@ -248,7 +252,9 @@
     <Compile Include="DAL\DBConnect.cs" />
     <Compile Include="DAL\EnCryptDAL.cs" />
     <Compile Include="DAL\NhanVienDAL.cs" />
+    <Compile Include="DAL\TonKhoDAL.cs" />
     <Compile Include="DTO\ApiRequest.cs" />
+    <Compile Include="DTO\BanAnDTO.cs" />
     <Compile Include="DTO\BankDTO.cs" />
     <Compile Include="DTO\CaLamDTO.cs" />
     <Compile Include="DTO\ChiTietComboDTO.cs" />
@@ -258,12 +264,14 @@
     <Compile Include="DTO\CungUngDTO.cs" />
     <Compile Include="DTO\DiaDiemDTO.cs" />
     <Compile Include="DTO\DonViTinhDTO.cs" />
+    <Compile Include="DTO\HoaDonDHDTO.cs" />
     <Compile Include="DTO\HoaDonDTO.cs" />
     <Compile Include="DTO\HoaDonThanhToanDTO.cs" />
     <Compile Include="DTO\ImgurUploader.cs" />
     <Compile Include="DTO\KhachHangDTO.cs" />
     <Compile Include="DTO\KhachHangItem.cs" />
     <Compile Include="DTO\KhuyenMaiDTO.cs" />
+    <Compile Include="DTO\LichLamViecDTO.cs" />
     <Compile Include="DTO\LichSuXuatKhoDTO.cs" />
     <Compile Include="DTO\LoaiMonAnDTO.cs" />
     <Compile Include="DTO\LoaiNguyenLieuDTO.cs" />
@@ -275,6 +283,12 @@
     <Compile Include="DTO\PhieuNhapDTO.cs" />
     <Compile Include="DTO\ReportHoaDonDTO.cs" />
     <Compile Include="DTO\TonKhoDTO.cs" />
+    <Compile Include="GUI\frmBanAn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\frmBanAn.Designer.cs">
+      <DependentUpon>frmBanAn.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\frmBep.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -286,6 +300,12 @@
     </Compile>
     <Compile Include="GUI\frmDangNhap.Designer.cs">
       <DependentUpon>frmDangNhap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\frmDanhSachHoaDon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\frmDanhSachHoaDon.Designer.cs">
+      <DependentUpon>frmDanhSachHoaDon.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\frmDatHang.cs">
       <SubType>Form</SubType>
@@ -310,12 +330,6 @@
     </Compile>
     <Compile Include="GUI\frmDonViTinh.Designer.cs">
       <DependentUpon>frmDonViTinh.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\frmHeThong.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\frmHeThong.Designer.cs">
-      <DependentUpon>frmHeThong.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\frmHoaDon.cs">
       <SubType>Form</SubType>
@@ -425,6 +439,12 @@
     <Compile Include="GUI\frmQuanLyNhanVien.Designer.cs">
       <DependentUpon>frmQuanLyNhanVien.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\frmRPHoaDonDatHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\frmRPHoaDonDatHang.Designer.cs">
+      <DependentUpon>frmRPHoaDonDatHang.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\frmSaoLuu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -455,6 +475,12 @@
     <Compile Include="GUI\frmThongKeDoanhThu.Designer.cs">
       <DependentUpon>frmThongKeDoanhThu.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\frmThongKeTonKho.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\frmThongKeTonKho.Designer.cs">
+      <DependentUpon>frmThongKeTonKho.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\frmTrangChu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -471,12 +497,24 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
+    <EmbeddedResource Include="GUI\frmBanAn.resx">
+      <DependentUpon>frmBanAn.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\frmBep.resx">
       <DependentUpon>frmBep.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\frmDangNhap.resx">
       <DependentUpon>frmDangNhap.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\frmDanhSachHoaDon.resx">
+      <DependentUpon>frmDanhSachHoaDon.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\frmDatHang.resx">
       <DependentUpon>frmDatHang.cs</DependentUpon>
@@ -489,9 +527,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\frmDonViTinh.resx">
       <DependentUpon>frmDonViTinh.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\frmHeThong.resx">
-      <DependentUpon>frmHeThong.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\frmHoaDon.resx">
       <DependentUpon>frmHoaDon.cs</DependentUpon>
@@ -547,6 +582,9 @@
     <EmbeddedResource Include="GUI\frmQuanLyNhanVien.resx">
       <DependentUpon>frmQuanLyNhanVien.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\frmRPHoaDonDatHang.resx">
+      <DependentUpon>frmRPHoaDonDatHang.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\frmSaoLuu.resx">
       <DependentUpon>frmSaoLuu.cs</DependentUpon>
     </EmbeddedResource>
@@ -562,20 +600,22 @@
     <EmbeddedResource Include="GUI\frmThongKeDoanhThu.resx">
       <DependentUpon>frmThongKeDoanhThu.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\frmThongKeTonKho.resx">
+      <DependentUpon>frmThongKeTonKho.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\frmTrangChu.resx">
       <DependentUpon>frmTrangChu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="app.manifest" />
+    <None Include="Config\config.env">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <EmbeddedResource Include="GUI\HoaDonDatHang.rdlc" />
     <None Include="GUI\InvoiceDataSet.xsc">
       <DependentUpon>InvoiceDataSet.xsd</DependentUpon>
     </None>
@@ -609,6 +649,16 @@
     <Content Include="Image\left_round_32px.png" />
     <Content Include="Image\left_round_96px.png" />
     <Content Include="Image\restart_120px.png" />
+    <None Include="Resources\capnhat.png" />
+    <None Include="Resources\huy.png" />
+    <None Include="Resources\thanhtoan.png" />
+    <None Include="Resources\them.png" />
+    <None Include="Resources\xacnhan.png" />
+    <None Include="Resources\xoa.png" />
+    <None Include="Resources\in.png" />
+    <None Include="Resources\luu.png" />
+    <None Include="Resources\timkiem.png" />
+    <None Include="Resources\bg kfc.jpg" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -623,6 +673,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.SqlServer.SqlManagementObjects.140.17283.0\build\net40\Microsoft.SqlServer.SqlManagementObjects.targets" Condition="Exists('..\packages\Microsoft.SqlServer.SqlManagementObjects.140.17283.0\build\net40\Microsoft.SqlServer.SqlManagementObjects.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

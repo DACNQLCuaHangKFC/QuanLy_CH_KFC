@@ -101,7 +101,17 @@ namespace WindowsFormsApplication1.DAL
                 }
             }
         }
+        public bool AddKhachHangWithDefaultDiemTichLuy(string soDienThoai, string tenKhachHang)
+        {
+            string query = "INSERT INTO KhachHang (SoDienThoai, TenKhachHang, DiemTichLuy) VALUES (@SoDienThoai, @TenKhachHang, 0)";
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+        new SqlParameter("@SoDienThoai", soDienThoai),
+        new SqlParameter("@TenKhachHang", tenKhachHang)
+            };
 
+            return dbConnect.ExecuteNonQuery(query, parameters, CommandType.Text) > 0;
+        }
 
     }
 }

@@ -15,9 +15,19 @@ namespace WindowsFormsApplication1.GUI
         public frmKhuyenMai()
         {
             InitializeComponent();
-            
+            AutoResizeDataGridView(dgrvKhuyenmai);
         }
+        public void AutoResizeDataGridView(DataGridView dgv)
+        {
+            // Set the AutoSizeColumnsMode to Fill to have columns adjust to fill the entire width
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
+            // Additionally, you can specify minimum widths or other settings for individual columns if needed
+            foreach (DataGridViewColumn column in dgv.Columns)
+            {
+                column.MinimumWidth = 50; // Set a minimum width as an example, adjust as needed
+            }
+        }
         void loadDgrvKhuyenMai()
         {
             dgrvKhuyenmai.DataSource = BUS.KhuyenMaiBUS.hienThiKhuyenMai();

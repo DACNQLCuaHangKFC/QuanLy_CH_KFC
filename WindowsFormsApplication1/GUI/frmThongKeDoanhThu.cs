@@ -22,11 +22,25 @@ namespace WindowsFormsApplication1.GUI
     public partial class frmThongKeDoanhThu : Form
     {
         public static string maDoanhThu;
-        public frmThongKeDoanhThu()
+        private string tenNhanVien;
+        public frmThongKeDoanhThu(string tenNhanVien)
         {
             InitializeComponent();
+            this.tenNhanVien = tenNhanVien;
+            AutoResizeDataGridView(dgrvDoanhthu);
+            AutoResizeDataGridView(dgrvKettoan);
         }
+        public void AutoResizeDataGridView(DataGridView dgv)
+        {
+            // Set the AutoSizeColumnsMode to Fill to have columns adjust to fill the entire width
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
+            // Additionally, you can specify minimum widths or other settings for individual columns if needed
+            foreach (DataGridViewColumn column in dgv.Columns)
+            {
+                column.MinimumWidth = 50; // Set a minimum width as an example, adjust as needed
+            }
+        }
         void loadDoanhThu()
         {
             DataTable dtDoanhThu = DoanhThuDAL.hienThiDoanhThu();
@@ -47,7 +61,6 @@ namespace WindowsFormsApplication1.GUI
         {
             txtMadoanhthu.Clear();
             dtpNgaydt.Value = DateTime.Now;
-            txtTongdoanhthu.Clear();
         }
 
         void xoaNoiDungChiTiet()
@@ -71,6 +84,7 @@ namespace WindowsFormsApplication1.GUI
                 cboCa.DisplayMember = "MaCaLam";  // Hiển thị MaCaLam
                 cboCa.ValueMember = "MaCaLam";    // Giá trị sẽ lấy MaCaLam
             }
+            cboCa.SelectedIndex = 0;
         }
 
         void loadChiTietDoanhThu(string maDoanhThu)
@@ -84,7 +98,6 @@ namespace WindowsFormsApplication1.GUI
             else
             {
                 MessageBox.Show("Không có chi tiết doanh thu nào được tìm thấy!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                txtTongdoanhthu.Text = "0";
                 dgrvKettoan.DataSource = null;
             }
         }
@@ -92,7 +105,6 @@ namespace WindowsFormsApplication1.GUI
         private void frmThongKeDoanhThu_Load(object sender, EventArgs e)
         {
             loadCboCa();
-            cboCa.SelectedValue = -1;
             loadDoanhThu();
             FormatDataGridView();
             dtpNgaykt.Enabled = false;
@@ -137,55 +149,77 @@ namespace WindowsFormsApplication1.GUI
             //}
         }
 
-        private void ExportToExcel(DataTable dt, string filePath, string companyName, double totalRevenue)
+        private void ExportToExcel(DataTable dt, string filePath, string companyName, double totalRevenue, string employeeName)
         {
             OfficeOpenXml.ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
 
             using (var package = new ExcelPackage())
             {
-                // Tạo một worksheet
+                // Tạo worksheet
                 var worksheet = package.Workbook.Worksheets.Add("Doanh Thu");
 
-                // Thêm thông tin công ty, người lập báo cáo và tổng doanh thu tháng
+                // Thêm thông tin công ty, ngày xuất, người lập báo cáo
                 worksheet.Cells[1, 1].Value = "Tên Công Ty:";
                 worksheet.Cells[1, 2].Value = companyName;
+                worksheet.Cells[2, 1].Value = $"Ngày xuất:";
+                worksheet.Cells[2, 2].Value = DateTime.Now.ToString("dd/MM/yyyy");
+                worksheet.Cells[3, 1].Value = $"Người xuất phiếu:";
+                worksheet.Cells[3, 2].Value = employeeName;
 
-               
-
-                // Định dạng tiêu đề thông tin báo cáo
+                // Định dạng thông tin công ty và tiêu đề
                 using (var range = worksheet.Cells[1, 1, 3, 2])
                 {
                     range.Style.Font.Bold = true;
                     range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
                 }
 
-                // Đặt tiêu đề cho các cột dữ liệu
-                int dataStartRow = 3; // Bắt đầu từ hàng thứ 3
+                // Đặt tiêu đề cho bảng dữ liệu
+                int dataStartRow = 5; // Dòng đầu tiên của bảng dữ liệu
                 worksheet.Cells[dataStartRow, 1].Value = "Mã Doanh Thu";
                 worksheet.Cells[dataStartRow, 2].Value = "Ngày Kết Toán";
-                worksheet.Cells[dataStartRow, 3].Value = "Tổng Doanh Thu";
+                worksheet.Cells[dataStartRow, 3].Value = "Tổng Doanh Thu (VND)";
 
-                // Định dạng tiêu đề bảng dữ liệu
-                using (var range = worksheet.Cells[dataStartRow, 1, dataStartRow, 3])
+                // Định dạng tiêu đề bảng
+                using (var headerRange = worksheet.Cells[dataStartRow, 1, dataStartRow, 3])
                 {
-                    range.Style.Font.Bold = true;
-                    range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                    range.Style.Fill.PatternType = ExcelFillStyle.Solid;
-                    range.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightBlue);
+                    headerRange.Style.Font.Bold = true;
+                    headerRange.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    headerRange.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                    headerRange.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    headerRange.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightBlue);
                 }
 
-                // Thêm dữ liệu từ DataTable vào Excel
-                int rowIndex = dataStartRow + 1; // Bắt đầu từ hàng ngay sau tiêu đề
+                // Thêm dữ liệu từ DataTable
+                int currentRow = dataStartRow + 1; // Hàng bắt đầu ghi dữ liệu
                 foreach (DataRow row in dt.Rows)
                 {
-                    worksheet.Cells[rowIndex, 1].Value = row["MaDoanhThu"];
-                    worksheet.Cells[rowIndex, 2].Value = Convert.ToDateTime(row["NgayKetToan"]).ToShortDateString();
-                    worksheet.Cells[rowIndex, 3].Value = Convert.ToDouble(row["TongDoanhThu"]);
-                    rowIndex++;
+                    worksheet.Cells[currentRow, 1].Value = row["MaDoanhThu"];
+                    worksheet.Cells[currentRow, 2].Value = Convert.ToDateTime(row["NgayKetToan"]).ToString("dd/MM/yyyy");
+                    worksheet.Cells[currentRow, 3].Value = Convert.ToDouble(row["TongDoanhThu"]).ToString("C0", new System.Globalization.CultureInfo("vi-VN"));
+                    currentRow++;
                 }
-                worksheet.Cells[rowIndex + 1, 1].Value = "Tổng Doanh Thu Tháng:";
-                worksheet.Cells[rowIndex + 1, 2].Value = totalRevenue.ToString("C0", new System.Globalization.CultureInfo("vi-VN"));
-                // Tự động căn chỉnh kích thước cột
+
+                // Thêm tổng doanh thu
+                worksheet.Cells[currentRow, 2].Value = "Tổng Doanh Thu Tháng:";
+                worksheet.Cells[currentRow, 3].Value = totalRevenue.ToString("C0", new System.Globalization.CultureInfo("vi-VN"));
+
+                // Định dạng tổng doanh thu
+                using (var totalRange = worksheet.Cells[currentRow, 2, currentRow, 3])
+                {
+                    totalRange.Style.Font.Bold = true;
+                    totalRange.Style.HorizontalAlignment = ExcelHorizontalAlignment.Right;
+                }
+
+                // Định dạng toàn bộ bảng dữ liệu
+                using (var dataRange = worksheet.Cells[dataStartRow, 1, currentRow, 3])
+                {
+                    dataRange.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                    dataRange.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                    dataRange.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                    dataRange.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                }
+
+                // Tự động điều chỉnh độ rộng cột
                 worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
 
                 // Lưu file
@@ -213,26 +247,7 @@ namespace WindowsFormsApplication1.GUI
                     MessageBox.Show("Ngày không hợp lệ.");
                 }
 
-                // Kiểm tra và gán giá trị doanh thu nếu có
-                if (dgrvKettoan.Rows.Count > index && dgrvKettoan.Rows[index].Cells[2].Value != DBNull.Value)
-                {
-                    double tongDoanhThu = 0;
-                    var cellValue = dgrvKettoan.Rows[index].Cells[2].Value;
-
-                    if (cellValue != DBNull.Value && cellValue != null)
-                    {
-                        tongDoanhThu = Convert.ToDouble(cellValue);
-                    }
-
-                    // Định dạng tiền Việt Nam
-                    CultureInfo vietnamCulture = new CultureInfo("vi-VN");
-                    txtTongdoanhthu.Text = tongDoanhThu.ToString("C0", vietnamCulture);
-                }
-                else
-                {
-                    // Nếu không có giá trị doanh thu, gán giá trị mặc định là 0
-                    txtTongdoanhthu.Text = "0";
-                }
+               
             }
         }
 
@@ -240,7 +255,7 @@ namespace WindowsFormsApplication1.GUI
         private void btnThem_Click(object sender, EventArgs e)
         {
             DoanhThuBUS dthu = new DoanhThuBUS();
-            DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn thêm đơn vị tính này không?", "Xác Nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn thêm thống kê doanh thu này không?", "Xác Nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (result == DialogResult.Yes)
             {
                 DateTime selectedDate = dtpNgaydt.Value;
@@ -353,9 +368,10 @@ namespace WindowsFormsApplication1.GUI
 
             // Gọi DAL để lấy dữ liệu
             DoanhThuBUS dt = new DoanhThuBUS();
-                DataTable dtThongKe = dt.LayDoanhThuTheoThang(month, year);
-            string companyName = "Công Ty ABC";
+            DataTable dtThongKe = dt.LayDoanhThuTheoThang(month, year);
+            string companyName = "CÔNG TY LIÊN DOANH TNHH KFC VIỆT NAM";
             double totalRevenue = dtThongKe.AsEnumerable().Sum(row => row.Field<double>("TongDoanhThu"));
+            string employeeName = tenNhanVien.Replace("Xin chào: ", "").Trim();
             if (dtThongKe.Rows.Count == 0)
                 {
                     MessageBox.Show("Không có dữ liệu doanh thu trong tháng được chọn.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -374,7 +390,7 @@ namespace WindowsFormsApplication1.GUI
                 {
                     try
                     {
-                        ExportToExcel(dtThongKe, saveFileDialog.FileName,companyName,totalRevenue);
+                        ExportToExcel(dtThongKe, saveFileDialog.FileName,companyName,totalRevenue,employeeName);
                         MessageBox.Show("Xuất file Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch (Exception ex)
@@ -386,18 +402,18 @@ namespace WindowsFormsApplication1.GUI
 
         private void txtTimkiem_TextChanged(object sender, EventArgs e)
         {
-            string searchQuery = txtTimkiem.Text.Trim();
+            //string searchQuery = txtTimkiem.Text.Trim();
 
-            if (string.IsNullOrEmpty(searchQuery))
-            {
-                loadDoanhThu();
-            }
-            else
-            {
-                DoanhThuBUS dt = new DoanhThuBUS();
-                dt.TimDoanhThuTheoNgay(searchQuery);
-                dgrvDoanhthu.DataSource = dt;
-            }
+            //if (string.IsNullOrEmpty(searchQuery))
+            //{
+            //    loadDoanhThu();
+            //}
+            //else
+            //{
+            //    DoanhThuBUS dt = new DoanhThuBUS();
+            //    dt.TimDoanhThuTheoNgay(searchQuery);
+            //    dgrvDoanhthu.DataSource = dt;
+            //}
         }
     }
 }

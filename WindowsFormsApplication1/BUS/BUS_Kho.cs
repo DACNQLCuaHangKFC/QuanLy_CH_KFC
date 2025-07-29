@@ -95,6 +95,10 @@ namespace WindowsFormsApplication1.BUS
         {
             return dal.CapNhatTrangThaiTonKhoBep(maNguyenLieu, trangThai);
         }
+        public bool CapNhatTrangThaiTonKhoKho(string maNguyenLieu, string trangThai)
+        {
+            return dal.CapNhatTrangThaiTonKhoKho(maNguyenLieu, trangThai);
+        }
         public bool NhapNguyenLieuVaoBep(string maNguyenLieu, int soLuongNhap, out string message)
         {
             // Lấy số lượng tồn kho của nguyên liệu từ kho

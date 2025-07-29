@@ -179,20 +179,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Tổng:                                                                                            </Value>
-                <Style>
-                  <FontSize>8pt</FontSize>
-                </Style>
-              </TextRun>
-              <TextRun>
-                <Value>=First(Fields!Total.Value, "DataSetHeader")</Value>
-                <Style>
-                  <FontSize>8pt</FontSize>
-                  <Format>#,0;(#,0)</Format>
-                </Style>
-              </TextRun>
-              <TextRun>
-                <Value>VNĐ</Value>
+                <Value>Tổng:                                                       </Value>
                 <Style>
                   <FontSize>8pt</FontSize>
                 </Style>
@@ -205,7 +192,7 @@
         <Top>2.16111in</Top>
         <Left>0.29791in</Left>
         <Height>0.20833in</Height>
-        <Width>3.82708in</Width>
+        <Width>0.79583in</Width>
         <ZIndex>5</ZIndex>
         <Style>
           <Border>
@@ -224,23 +211,8 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Thuế 10%:                                                                                    </Value>
-                <Style>
-                  <FontSize>8pt</FontSize>
-                </Style>
-              </TextRun>
-              <TextRun>
-                <Value>=First(Fields!Tax.Value, "DataSetHeader")</Value>
-                <Style>
-                  <FontSize>8pt</FontSize>
-                  <Format>#,0;(#,0)</Format>
-                </Style>
-              </TextRun>
-              <TextRun>
-                <Value>VNĐ</Value>
-                <Style>
-                  <FontSize>8pt</FontSize>
-                </Style>
+                <Value>Thuế 10%:                 </Value>
+                <Style />
               </TextRun>
             </TextRuns>
             <Style>
@@ -249,10 +221,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox4</rd:DefaultName>
-        <Top>2.36944in</Top>
-        <Left>0.29791in</Left>
+        <Top>2.37639in</Top>
+        <Left>0.29796in</Left>
         <Height>0.20833in</Height>
-        <Width>3.82708in</Width>
+        <Width>0.79578in</Width>
         <ZIndex>6</ZIndex>
         <Style>
           <Border>
@@ -271,33 +243,18 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Giảm Giá:                                                                                      </Value>
-                <Style>
-                  <FontSize>8pt</FontSize>
-                </Style>
-              </TextRun>
-              <TextRun>
-                <Value>=First(Fields!Discount.Value,"DataSetHeader")</Value>
-                <Style>
-                  <FontSize>8pt</FontSize>
-                  <Format>#,0;(#,0)</Format>
-                </Style>
-              </TextRun>
-              <TextRun>
-                <Value>VNĐ</Value>
-                <Style>
-                  <FontSize>8pt</FontSize>
-                </Style>
+                <Value>Giảm Giá:</Value>
+                <Style />
               </TextRun>
             </TextRuns>
             <Style />
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox4</rd:DefaultName>
-        <Top>2.57777in</Top>
-        <Left>0.29792in</Left>
+        <Top>2.58472in</Top>
+        <Left>0.29796in</Left>
         <Height>0.20833in</Height>
-        <Width>3.82707in</Width>
+        <Width>0.79578in</Width>
         <ZIndex>7</ZIndex>
         <Style>
           <Border>
@@ -316,147 +273,21 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Thành Tiền:                                                        </Value>
-                <Style />
-              </TextRun>
-              <TextRun>
-                <Value>=First(Fields!FinalAmount.Value,"DataSetHeader")</Value>
+                <Value>Thành Tiền:</Value>
                 <Style>
-                  <Format>#,0;(#,0)</Format>
+                  <FontSize>14pt</FontSize>
                 </Style>
-              </TextRun>
-              <TextRun>
-                <Value>VNĐ</Value>
-                <Style />
               </TextRun>
             </TextRuns>
             <Style />
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox4</rd:DefaultName>
-        <Top>3.03889in</Top>
-        <Left>0.29791in</Left>
-        <Height>0.20833in</Height>
-        <Width>3.82708in</Width>
+        <Top>3.12376in</Top>
+        <Left>0.29796in</Left>
+        <Height>0.34375in</Height>
+        <Width>1.17346in</Width>
         <ZIndex>8</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox10">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Khách Đưa:                                                       </Value>
-                <Style />
-              </TextRun>
-              <TextRun>
-                <Value>=First(Fields!CustomerPaid.Value,"DataSetHeader")</Value>
-                <Style>
-                  <Format>#,0;(#,0)</Format>
-                </Style>
-              </TextRun>
-              <TextRun>
-                <Value>VNĐ</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox4</rd:DefaultName>
-        <Top>3.24722in</Top>
-        <Left>0.29792in</Left>
-        <Height>0.20833in</Height>
-        <Width>3.82707in</Width>
-        <ZIndex>9</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox11">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Tiền Thối:                                                           </Value>
-                <Style />
-              </TextRun>
-              <TextRun>
-                <Value>=First(Fields!Change.Value,"DataSetHeader")</Value>
-                <Style>
-                  <Format>#,0;(#,0)</Format>
-                </Style>
-              </TextRun>
-              <TextRun>
-                <Value>VNĐ</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox4</rd:DefaultName>
-        <Top>3.45555in</Top>
-        <Left>0.29792in</Left>
-        <Height>0.20833in</Height>
-        <Width>3.82707in</Width>
-        <ZIndex>10</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox12">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Điểm Tích Lũy Sử Dụng:                                                                      </Value>
-                <Style>
-                  <FontSize>8pt</FontSize>
-                </Style>
-              </TextRun>
-              <TextRun>
-                <Value>=First(Fields!UsedPoints.Value,"DataSetHeader")</Value>
-                <Style>
-                  <FontSize>8pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox4</rd:DefaultName>
-        <Top>2.7861in</Top>
-        <Left>0.29792in</Left>
-        <Height>0.20833in</Height>
-        <Width>3.82707in</Width>
-        <ZIndex>11</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -474,11 +305,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Điểm Tích Lũy:                                                          </Value>
-                <Style />
-              </TextRun>
-              <TextRun>
-                <Value>=First(Fields!ReceivedPoints.Value,"DataSetHeader")</Value>
+                <Value>Điểm Tích Lũy:</Value>
                 <Style />
               </TextRun>
             </TextRuns>
@@ -486,11 +313,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox4</rd:DefaultName>
-        <Top>3.66388in</Top>
-        <Left>0.29792in</Left>
+        <Top>2.80694in</Top>
+        <Left>0.29796in</Left>
         <Height>0.20833in</Height>
-        <Width>3.82707in</Width>
-        <ZIndex>12</ZIndex>
+        <Width>1.0588in</Width>
+        <ZIndex>9</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -827,7 +654,7 @@
         <Left>0.28125in</Left>
         <Height>0.9in</Height>
         <Width>3.84372in</Width>
-        <ZIndex>13</ZIndex>
+        <ZIndex>10</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -861,7 +688,7 @@
         <Left>2.59792in</Left>
         <Height>0.23611in</Height>
         <Width>1.52708in</Width>
-        <ZIndex>14</ZIndex>
+        <ZIndex>11</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -899,7 +726,7 @@
         <Left>2.59792in</Left>
         <Height>0.20833in</Height>
         <Width>1.52708in</Width>
-        <ZIndex>15</ZIndex>
+        <ZIndex>12</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -915,19 +742,218 @@
         <Value>=First(Fields!QRCode.Value, "DataSetHeader")</Value>
         <MIMEType>image/png</MIMEType>
         <Sizing>FitProportional</Sizing>
-        <Top>4.10292in</Top>
-        <Left>0.73542in</Left>
-        <Height>2.625in</Height>
-        <Width>2.99792in</Width>
-        <ZIndex>16</ZIndex>
+        <Top>3.68625in</Top>
+        <Left>0.85209in</Left>
+        <Height>2.5in</Height>
+        <Width>2.5in</Width>
+        <ZIndex>13</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
         </Style>
       </Image>
+      <Textbox Name="Textbox10">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!Total.Value, "DataSetHeader")</Value>
+                <Style>
+                  <Format>#,0;(#,0)</Format>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value>VNĐ</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Right</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox10</rd:DefaultName>
+        <Top>2.16111in</Top>
+        <Left>3.30211in</Left>
+        <Height>0.20833in</Height>
+        <Width>0.82292in</Width>
+        <ZIndex>14</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox11">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value xml:space="preserve"> </Value>
+                <Style>
+                  <Format>#,0;(#,0)</Format>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value>=First(Fields!Tax.Value, "DataSetHeader")</Value>
+                <Style>
+                  <Format>#,0;(#,0)</Format>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value>VNĐ</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Right</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox4</rd:DefaultName>
+        <Top>2.37639in</Top>
+        <Left>3.30211in</Left>
+        <Height>0.20833in</Height>
+        <Width>0.82293in</Width>
+        <ZIndex>15</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox12">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value xml:space="preserve"> </Value>
+                <Style>
+                  <Format>#,0;(#,0)</Format>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value>=First(Fields!Discount.Value, "DataSetHeader")</Value>
+                <Style>
+                  <Format>#,0;(#,0)</Format>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value>VNĐ</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Right</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox4</rd:DefaultName>
+        <Top>2.59861in</Top>
+        <Left>3.30211in</Left>
+        <Height>0.20833in</Height>
+        <Width>0.82293in</Width>
+        <ZIndex>16</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox15">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!ReceivedPoints.Value, "DataSetHeader")</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Right</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox4</rd:DefaultName>
+        <Top>2.80694in</Top>
+        <Left>3.61461in</Left>
+        <Height>0.20833in</Height>
+        <Width>0.51036in</Width>
+        <ZIndex>17</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox17">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!FinalAmount.Value, "DataSetHeader")</Value>
+                <Style>
+                  <FontSize>14pt</FontSize>
+                  <Format>#,0;(#,0)</Format>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value>VNĐ</Value>
+                <Style>
+                  <FontSize>14pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Right</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox4</rd:DefaultName>
+        <Top>3.12376in</Top>
+        <Left>2.95571in</Left>
+        <Height>0.34375in</Height>
+        <Width>1.16933in</Width>
+        <ZIndex>18</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
     </ReportItems>
-    <Height>6.89458in</Height>
+    <Height>6.31125in</Height>
     <Style />
   </Body>
   <Width>4.26958in</Width>
@@ -974,7 +1000,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>InvoiceDataSet</rd:DataSetName>
-        <rd:SchemaPath>E:\Tu\DACN\Code\WindowsFormsApplication1\WindowsFormsApplication1\GUI\InvoiceDataSet.xsd</rd:SchemaPath>
+        <rd:SchemaPath>E:\Tu\DACN\Code\QLCuaHangKFC\QLCuaHangKFC\GUI\InvoiceDataSet.xsd</rd:SchemaPath>
         <rd:TableName>InvoiceDetails</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
@@ -1042,7 +1068,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>InvoiceDataSet</rd:DataSetName>
-        <rd:SchemaPath>E:\Tu\DACN\Code\WindowsFormsApplication1\WindowsFormsApplication1\GUI\InvoiceDataSet.xsd</rd:SchemaPath>
+        <rd:SchemaPath>E:\Tu\DACN\Code\QLCuaHangKFC\QLCuaHangKFC\GUI\InvoiceDataSet.xsd</rd:SchemaPath>
         <rd:TableName>InvoiceHeader</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />

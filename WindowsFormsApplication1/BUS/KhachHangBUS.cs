@@ -42,6 +42,9 @@ namespace WindowsFormsApplication1.BUS
         {
             return khachHangDAL.KiemTraTonTaiSoDienThoai(soDienThoai);
         }
-
+        public bool AddKhachHangWithDefaultDiemTichLuy(string soDienThoai, string tenKhachHang)
+        {
+            return khachHangDAL.AddKhachHangWithDefaultDiemTichLuy(soDienThoai, tenKhachHang);
+        }
     }
 }

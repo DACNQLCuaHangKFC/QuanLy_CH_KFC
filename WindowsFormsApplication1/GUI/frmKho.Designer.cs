@@ -45,6 +45,7 @@
             this.lblTime = new System.Windows.Forms.Label();
             this.Kho = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnCapNhat = new System.Windows.Forms.Button();
             this.grpTimKiem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBep)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKho)).BeginInit();
@@ -58,11 +59,11 @@
             this.grpTimKiem.Controls.Add(this.txtTimKiem);
             this.grpTimKiem.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpTimKiem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(0)))), ((int)(((byte)(42)))));
-            this.grpTimKiem.Location = new System.Drawing.Point(16, 8);
+            this.grpTimKiem.Location = new System.Drawing.Point(16, 7);
             this.grpTimKiem.Margin = new System.Windows.Forms.Padding(4);
             this.grpTimKiem.Name = "grpTimKiem";
             this.grpTimKiem.Padding = new System.Windows.Forms.Padding(4);
-            this.grpTimKiem.Size = new System.Drawing.Size(514, 101);
+            this.grpTimKiem.Size = new System.Drawing.Size(476, 101);
             this.grpTimKiem.TabIndex = 88;
             this.grpTimKiem.TabStop = false;
             this.grpTimKiem.Text = "Tìm kiếm";
@@ -72,7 +73,7 @@
             this.cmbTenLNL.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTenLNL.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbTenLNL.FormattingEnabled = true;
-            this.cmbTenLNL.Location = new System.Drawing.Point(354, 46);
+            this.cmbTenLNL.Location = new System.Drawing.Point(306, 46);
             this.cmbTenLNL.Margin = new System.Windows.Forms.Padding(4);
             this.cmbTenLNL.Name = "cmbTenLNL";
             this.cmbTenLNL.Size = new System.Drawing.Size(147, 33);
@@ -82,7 +83,7 @@
             // txtTimKiem
             // 
             this.txtTimKiem.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTimKiem.Location = new System.Drawing.Point(52, 46);
+            this.txtTimKiem.Location = new System.Drawing.Point(17, 46);
             this.txtTimKiem.Margin = new System.Windows.Forms.Padding(4);
             this.txtTimKiem.Name = "txtTimKiem";
             this.txtTimKiem.Size = new System.Drawing.Size(281, 32);
@@ -94,31 +95,37 @@
             this.dgvBep.AllowUserToAddRows = false;
             this.dgvBep.AllowUserToDeleteRows = false;
             this.dgvBep.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvBep.Location = new System.Drawing.Point(1, 3);
+            this.dgvBep.Location = new System.Drawing.Point(3, 7);
+            this.dgvBep.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvBep.Name = "dgvBep";
             this.dgvBep.ReadOnly = true;
             this.dgvBep.RowHeadersWidth = 51;
             this.dgvBep.RowTemplate.Height = 24;
-            this.dgvBep.Size = new System.Drawing.Size(591, 307);
+            this.dgvBep.Size = new System.Drawing.Size(690, 362);
             this.dgvBep.TabIndex = 87;
             this.dgvBep.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvBep_CellContentClick);
             // 
             // lblSoLuong
             // 
             this.lblSoLuong.AutoSize = true;
-            this.lblSoLuong.Location = new System.Drawing.Point(579, 200);
+            this.lblSoLuong.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSoLuong.ForeColor = System.Drawing.Color.Red;
+            this.lblSoLuong.Location = new System.Drawing.Point(756, 188);
             this.lblSoLuong.Name = "lblSoLuong";
-            this.lblSoLuong.Size = new System.Drawing.Size(67, 16);
+            this.lblSoLuong.Size = new System.Drawing.Size(77, 20);
             this.lblSoLuong.TabIndex = 86;
             this.lblSoLuong.Text = "Số Lượng:";
             // 
             // btnNhapBep
             // 
-            this.btnNhapBep.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(0)))), ((int)(((byte)(42)))));
-            this.btnNhapBep.ForeColor = System.Drawing.Color.White;
-            this.btnNhapBep.Location = new System.Drawing.Point(827, 188);
+            this.btnNhapBep.BackColor = System.Drawing.SystemColors.Control;
+            this.btnNhapBep.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNhapBep.ForeColor = System.Drawing.Color.Black;
+            this.btnNhapBep.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnNhapBep.Location = new System.Drawing.Point(772, 230);
+            this.btnNhapBep.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnNhapBep.Name = "btnNhapBep";
-            this.btnNhapBep.Size = new System.Drawing.Size(113, 40);
+            this.btnNhapBep.Size = new System.Drawing.Size(196, 53);
             this.btnNhapBep.TabIndex = 85;
             this.btnNhapBep.Text = "Nhập Vào Bếp";
             this.btnNhapBep.UseVisualStyleBackColor = false;
@@ -126,9 +133,10 @@
             // 
             // txtSoLuong
             // 
-            this.txtSoLuong.Location = new System.Drawing.Point(710, 197);
+            this.txtSoLuong.Location = new System.Drawing.Point(893, 186);
+            this.txtSoLuong.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtSoLuong.Name = "txtSoLuong";
-            this.txtSoLuong.Size = new System.Drawing.Size(94, 22);
+            this.txtSoLuong.Size = new System.Drawing.Size(130, 22);
             this.txtSoLuong.TabIndex = 84;
             // 
             // dgvKho
@@ -137,67 +145,77 @@
             this.dgvKho.AllowUserToDeleteRows = false;
             this.dgvKho.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvKho.Location = new System.Drawing.Point(4, 5);
+            this.dgvKho.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvKho.Name = "dgvKho";
             this.dgvKho.ReadOnly = true;
             this.dgvKho.RowHeadersWidth = 51;
             this.dgvKho.RowTemplate.Height = 24;
-            this.dgvKho.Size = new System.Drawing.Size(511, 466);
+            this.dgvKho.Size = new System.Drawing.Size(672, 535);
             this.dgvKho.TabIndex = 83;
             this.dgvKho.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvKho_CellContentClick);
             // 
             // lblManl
             // 
             this.lblManl.AutoSize = true;
-            this.lblManl.Location = new System.Drawing.Point(579, 71);
+            this.lblManl.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblManl.ForeColor = System.Drawing.Color.Red;
+            this.lblManl.Location = new System.Drawing.Point(756, 60);
             this.lblManl.Name = "lblManl";
-            this.lblManl.Size = new System.Drawing.Size(107, 16);
+            this.lblManl.Size = new System.Drawing.Size(126, 20);
             this.lblManl.TabIndex = 89;
             this.lblManl.Text = "Mã Nguyên Liệu:";
             // 
             // txtManl
             // 
-            this.txtManl.Location = new System.Drawing.Point(710, 65);
+            this.txtManl.Location = new System.Drawing.Point(890, 54);
+            this.txtManl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtManl.Name = "txtManl";
-            this.txtManl.Size = new System.Drawing.Size(230, 22);
+            this.txtManl.Size = new System.Drawing.Size(231, 22);
             this.txtManl.TabIndex = 90;
             // 
             // txtTennl
             // 
-            this.txtTennl.Location = new System.Drawing.Point(710, 108);
+            this.txtTennl.Location = new System.Drawing.Point(893, 97);
+            this.txtTennl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtTennl.Name = "txtTennl";
-            this.txtTennl.Size = new System.Drawing.Size(230, 22);
+            this.txtTennl.Size = new System.Drawing.Size(231, 22);
             this.txtTennl.TabIndex = 91;
             // 
             // lblTennl
             // 
             this.lblTennl.AutoSize = true;
-            this.lblTennl.Location = new System.Drawing.Point(579, 111);
+            this.lblTennl.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTennl.ForeColor = System.Drawing.Color.Red;
+            this.lblTennl.Location = new System.Drawing.Point(756, 100);
             this.lblTennl.Name = "lblTennl";
-            this.lblTennl.Size = new System.Drawing.Size(112, 16);
+            this.lblTennl.Size = new System.Drawing.Size(128, 20);
             this.lblTennl.TabIndex = 92;
             this.lblTennl.Text = "Tên Nguyên Liệu:";
             // 
             // lblDvt
             // 
             this.lblDvt.AutoSize = true;
-            this.lblDvt.Location = new System.Drawing.Point(579, 155);
+            this.lblDvt.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDvt.ForeColor = System.Drawing.Color.Red;
+            this.lblDvt.Location = new System.Drawing.Point(756, 144);
             this.lblDvt.Name = "lblDvt";
-            this.lblDvt.Size = new System.Drawing.Size(38, 16);
+            this.lblDvt.Size = new System.Drawing.Size(42, 20);
             this.lblDvt.TabIndex = 93;
             this.lblDvt.Text = "DVT:";
             // 
             // txtDvt
             // 
-            this.txtDvt.Location = new System.Drawing.Point(710, 152);
+            this.txtDvt.Location = new System.Drawing.Point(890, 142);
+            this.txtDvt.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtDvt.Name = "txtDvt";
-            this.txtDvt.Size = new System.Drawing.Size(230, 22);
+            this.txtDvt.Size = new System.Drawing.Size(231, 22);
             this.txtDvt.TabIndex = 94;
             // 
             // lblTime
             // 
             this.lblTime.AutoSize = true;
             this.lblTime.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTime.Location = new System.Drawing.Point(578, 26);
+            this.lblTime.Location = new System.Drawing.Point(756, 15);
             this.lblTime.Name = "lblTime";
             this.lblTime.Size = new System.Drawing.Size(47, 19);
             this.lblTime.TabIndex = 99;
@@ -207,23 +225,41 @@
             // 
             this.Kho.Controls.Add(this.dgvKho);
             this.Kho.Location = new System.Drawing.Point(12, 137);
+            this.Kho.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Kho.Name = "Kho";
-            this.Kho.Size = new System.Drawing.Size(518, 477);
+            this.Kho.Size = new System.Drawing.Size(679, 542);
             this.Kho.TabIndex = 102;
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.dgvBep);
-            this.panel1.Location = new System.Drawing.Point(536, 301);
+            this.panel1.Location = new System.Drawing.Point(697, 308);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(595, 313);
+            this.panel1.Size = new System.Drawing.Size(696, 371);
             this.panel1.TabIndex = 103;
+            // 
+            // btnCapNhat
+            // 
+            this.btnCapNhat.BackColor = System.Drawing.SystemColors.Control;
+            this.btnCapNhat.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCapNhat.ForeColor = System.Drawing.Color.Black;
+            this.btnCapNhat.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCapNhat.Location = new System.Drawing.Point(512, 48);
+            this.btnCapNhat.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnCapNhat.Name = "btnCapNhat";
+            this.btnCapNhat.Size = new System.Drawing.Size(163, 53);
+            this.btnCapNhat.TabIndex = 104;
+            this.btnCapNhat.Text = "Cập Nhật";
+            this.btnCapNhat.UseVisualStyleBackColor = false;
+            this.btnCapNhat.Click += new System.EventHandler(this.btnCapNhat_Click);
             // 
             // frmKho
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1142, 658);
+            this.ClientSize = new System.Drawing.Size(1405, 703);
+            this.Controls.Add(this.btnCapNhat);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.Kho);
             this.Controls.Add(this.lblTime);
@@ -238,6 +274,7 @@
             this.Controls.Add(this.btnNhapBep);
             this.Controls.Add(this.txtSoLuong);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximizeBox = false;
             this.Name = "frmKho";
             this.Text = "frmKho";
@@ -272,6 +309,7 @@
         private System.Windows.Forms.Label lblTime;
         private System.Windows.Forms.Panel Kho;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btnCapNhat;
     }
 }
 

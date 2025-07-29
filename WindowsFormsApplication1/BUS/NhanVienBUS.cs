@@ -17,6 +17,11 @@ namespace WindowsFormsApplication1.BUS
             nhanvienDAL = new NhanVienDAL();
         }
 
+        public static DataTable hienThiNhanVien()
+        {
+            return NhanVienDAL.hienThiNhanVien();
+        }
+
         public string CheckLogin(string username,string password)
         {
             return NhanVienDAL.kiemDangNhap(username, password);
@@ -45,6 +50,23 @@ namespace WindowsFormsApplication1.BUS
         public DataTable TimKiemNhanVien (string tenNhanVien)
         {
             return nhanvienDAL.TimKiemNhanVien(tenNhanVien);
+        }
+
+        public string LayTenNhanVien(string maNhanVien)
+        {
+            NhanVienDAL nhanVienDAL = new NhanVienDAL();
+            return nhanVienDAL.LayTenNhanVien(maNhanVien);
+        }
+
+        public bool ResetMatKhau(string maNhanVien, string matKhauMacDinh = "123")
+        {
+            if (string.IsNullOrEmpty(maNhanVien))
+            {
+                throw new ArgumentException("Mã nhân viên không được để trống.");
+            }
+            string matKhauMoi = EnCryptDAL.EncryptMD5(matKhauMacDinh);
+
+            return nhanvienDAL.ResetMatKhau(maNhanVien, matKhauMoi);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace WindowsFormsApplication1.GUI
 
         private void moFrmDangNhap()
         {
-            Thread.Sleep(0);
+            Thread.Sleep(1000);
             if (this.InvokeRequired)
             {
                 this.BeginInvoke((MethodInvoker)delegate ()
@@ -38,7 +38,7 @@ namespace WindowsFormsApplication1.GUI
 
         private void moFrmKetNoi()
         {
-            Thread.Sleep(0);
+            Thread.Sleep(1000);
             if (this.InvokeRequired)
             {
                 this.BeginInvoke((MethodInvoker)delegate ()
@@ -58,14 +58,14 @@ namespace WindowsFormsApplication1.GUI
         {
             if(!DAL.KiemTraKetNoiDAL.kiemTraKetNoi())
             {
-                lblTrangthai.Text= "...Không thể kết nối đến CSDL. Đang cấu hình lại";
+                lblTrangthai.Text= "Không thể kết nối đến CSDL. Đang cấu hình lại";
                 Thread th = new Thread(new ThreadStart(moFrmKetNoi));
                 th.IsBackground = true;
                 th.Start();
             }
             else
             {
-                lblTrangthai.Text = "...Kết nối thành công. Đang mở ứng dụng";
+                lblTrangthai.Text = "Kết nối thành công. Đang mở ứng dụng";
                 Thread th = new Thread(new ThreadStart(moFrmDangNhap));
                 th.IsBackground = true;
                 th.Start();
@@ -74,19 +74,19 @@ namespace WindowsFormsApplication1.GUI
 
         private void loadTrangThai()
         {
-            Thread.Sleep(0);
+            Thread.Sleep(1000);
             if (this.InvokeRequired)
             {
                 this.BeginInvoke((MethodInvoker)delegate ()
                 {
-                    lblTrangthai.Text = "...Đang kiểm tra kết nối đến CSDL";
+                    lblTrangthai.Text = "Đang kiểm tra kết nối đến CSDL";
                 });
             }
             else
             {
-                lblTrangthai.Text = "...Đang kiểm tra kết nối đến CSDL";
+                lblTrangthai.Text = "Đang kiểm tra kết nối đến CSDL";
             }
-            Thread.Sleep(0);
+            Thread.Sleep(1000);
             if (this.InvokeRequired)
             {
                 this.BeginInvoke((MethodInvoker)delegate ()
@@ -102,7 +102,7 @@ namespace WindowsFormsApplication1.GUI
 
         private void frmKiemTraDB_Load(object sender, EventArgs e)
         {
-            lblTrangthai.Text = "...Đang mở ứng dụng";
+            lblTrangthai.Text = "Đang mở ứng dụng";
             Thread th = new Thread(new ThreadStart(loadTrangThai));
             th.IsBackground = true;
             th.Start();

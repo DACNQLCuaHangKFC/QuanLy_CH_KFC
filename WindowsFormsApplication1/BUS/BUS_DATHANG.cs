@@ -69,9 +69,9 @@ namespace WindowsFormsApplication1.BUS
         {
             return dh.SearchPhieuNhap(startDate, endDate);
         }
-        public DataTable LayChiTietPhieuNhapTheoMa(string maPhieuNhapHang)
+        public DataTable LayChiTietPhieuNhapTheoMa(string maPhieuNhapHang, string maNCC)
         {
-            return dh.LayChiTietPhieuNhapTheoMa(maPhieuNhapHang);
+            return dh.LayChiTietPhieuNhapTheoMa(maPhieuNhapHang, maNCC);
         }
         public List<NguyenLieuDTO> LayDanhSachNguyenLieuTheoTrangThai(string trangThai)
         {

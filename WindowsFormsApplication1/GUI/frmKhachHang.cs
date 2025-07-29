@@ -34,6 +34,11 @@ namespace WindowsFormsApplication1.GUI
             {
                 List<KhachHangDTO> danhSach = khachHangBUS.GetAllKhachHang();
                 dgvDanhSachKhachHang.DataSource = danhSach;
+                dgvDanhSachKhachHang.Columns["SoDienThoai"].HeaderText = "Số Điện Thoại";
+                dgvDanhSachKhachHang.Columns["TenKhachHang"].HeaderText = "Tên Khách Hàng";
+                dgvDanhSachKhachHang.Columns["Email"].HeaderText = "Email";
+                dgvDanhSachKhachHang.Columns["NgaySinh"].HeaderText = "Ngày Sinh";
+                dgvDanhSachKhachHang.Columns["DiemTichLuy"].HeaderText = "Điểm Tích Lũy";
             }
             catch (Exception ex)
             {
@@ -115,7 +120,7 @@ namespace WindowsFormsApplication1.GUI
                         TenKhachHang = txtTenKhachHang.Text,
                         Email = txtEmail.Text,
                         NgaySinh = dtpkDOB.Value,
-                        DiemTichLuy = int.Parse(txtDiemTichLuy.Text),
+                        DiemTichLuy = int.Parse(selectedRow.Cells["DiemTichLuy"].Value.ToString()),
                         SoDienThoai = selectedRow.Cells["SoDienThoai"].Value.ToString() // Lấy số điện thoại từ dòng được chọn
                     };
 
@@ -170,13 +175,36 @@ namespace WindowsFormsApplication1.GUI
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = dgvDanhSachKhachHang.Rows[e.RowIndex];
+
+                // Kiểm tra và truyền giá trị vào txtSDT và txtTenKhachHang
                 txtSDT.Text = row.Cells["SoDienThoai"].Value.ToString();
                 txtTenKhachHang.Text = row.Cells["TenKhachHang"].Value.ToString();
-                txtEmail.Text = row.Cells["Email"].Value.ToString().Trim();
-                dtpkDOB.Value = DateTime.Parse(row.Cells["NgaySinh"].Value.ToString());
+
+                // Kiểm tra và truyền giá trị vào txtEmail nếu không null
+                if (row.Cells["Email"].Value != DBNull.Value && row.Cells["Email"].Value != null)
+                {
+                    txtEmail.Text = row.Cells["Email"].Value.ToString().Trim();
+                }
+                else
+                {
+                    txtEmail.Clear(); // Nếu không có giá trị, xóa dữ liệu trong txtEmail
+                }
+
+                // Kiểm tra và truyền giá trị vào dtpkDOB nếu không null
+                if (row.Cells["NgaySinh"].Value != DBNull.Value && row.Cells["NgaySinh"].Value != null)
+                {
+                    dtpkDOB.Value = DateTime.Parse(row.Cells["NgaySinh"].Value.ToString());
+                }
+                else
+                {
+                    dtpkDOB.Value = DateTime.Now; // Nếu không có giá trị, bạn có thể đặt giá trị mặc định
+                }
+
+                // Truyền giá trị vào txtDiemTichLuy
                 txtDiemTichLuy.Text = row.Cells["DiemTichLuy"].Value.ToString();
             }
         }
+
         // Kiểm tra số điện thoại hợp lệ (chỉ cho phép số và độ dài từ 10-15 ký tự)
         private bool IsValidPhoneNumber(string phoneNumber)
         {

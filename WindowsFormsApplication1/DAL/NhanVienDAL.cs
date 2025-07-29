@@ -124,6 +124,25 @@ namespace WindowsFormsApplication1.DAL
             
         }
 
+        public string LayTenNhanVien(string maNhanVien)
+        {
+            string tenNhanVien = string.Empty;
+
+            using (SqlConnection connection = db.GetConnection())
+            {
+                string query = "SELECT TenNhanVien FROM NhanVien WHERE MaNhanVien = @MaNhanVien";
+                SqlCommand cmd = new SqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@MaNhanVien", maNhanVien);
+
+                object result = cmd.ExecuteScalar();
+                if (result != null)
+                {
+                    tenNhanVien = result.ToString();
+                }
+            }
+
+            return tenNhanVien;
+        }
 
         public static DataTable layLoaiNhanVien()
         {
@@ -343,6 +362,32 @@ namespace WindowsFormsApplication1.DAL
                     MessageBox.Show("Lỗi khi cập nhật loại nhân viên: " + ex.Message);
                     return false;
                 }
+            }
+        }
+
+        public bool ResetMatKhau(string maNhanVien, string matKhauMoi)
+        {
+            try
+            {
+                using (SqlConnection connection = db.GetConnection())
+                {
+                    if (connection == null)
+                    {
+                        return false;
+                    }
+
+                    SqlCommand command = new SqlCommand("sp_ResetMatKhauNhanVien", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@MaNhanVien", maNhanVien);
+                    command.Parameters.AddWithValue("@MatKhauMoi", matKhauMoi);
+                    command.ExecuteNonQuery();
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Lỗi khi reset mật khẩu: " + ex.Message);
             }
         }
     }

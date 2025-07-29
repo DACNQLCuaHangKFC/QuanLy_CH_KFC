@@ -41,38 +41,57 @@ namespace WindowsFormsApplication1
         private void UpdateCurrentTime()
         {
             lblTime.Text = "Thời gian hiện tại: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-        }
+        } 
         public void LoadDgvKho()
         {
-            
             List<NguyenLieuDTO> nguyenLieu = BUS_Kho.LayDanhSachNguyenLieuKho();
+            dgvKho.AutoGenerateColumns = false;
             dgvKho.DataSource = nguyenLieu;
-            dgvKho.Columns["MaNguyenLieu"].HeaderText = "Mã Nguyên Liệu";
-            dgvKho.Columns["TenNguyenLieu"].HeaderText = "Tên Nguyên Liệu";
-            dgvKho.Columns["TenDVT"].HeaderText = "Đơn Vị Tính";
-            dgvKho.Columns["SoLuongTon"].HeaderText = "Số Lượng Tồn";
-            dgvKho.Columns["TrangThai"].HeaderText = "Trạng Thái";
-            dgvKho.Columns["TenLoaiNguyenLieu"].Visible = false;
-            dgvKho.Columns["MaLoaiNguyenLieu"].Visible = false;
-            dgvKho.Columns["MaDVT"].Visible = false;
-        }   
+            dgvKho.Columns.Clear();
+
+            dgvKho.Columns.Add(new DataGridViewTextBoxColumn { Name = "MaNguyenLieu", DataPropertyName = "MaNguyenLieu", HeaderText = "Mã Nguyên Liệu" });
+            dgvKho.Columns.Add(new DataGridViewTextBoxColumn { Name = "TenNguyenLieu", DataPropertyName = "TenNguyenLieu", HeaderText = "Tên Nguyên Liệu" });
+            dgvKho.Columns.Add(new DataGridViewTextBoxColumn { Name = "TenDVT", DataPropertyName = "TenDVT", HeaderText = "Đơn Vị Tính" });
+            dgvKho.Columns.Add(new DataGridViewTextBoxColumn { Name = "SoLuongTon", DataPropertyName = "SoLuongTon", HeaderText = "Số Lượng Tồn" });
+            dgvKho.Columns.Add(new DataGridViewTextBoxColumn { Name = "TrangThai", DataPropertyName = "TrangThai", HeaderText = "Trạng Thái" });
+            dgvKho.Columns.Add(new DataGridViewTextBoxColumn { Name = "TenLoaiNguyenLieu", DataPropertyName = "TenLoaiNguyenLieu", Visible = false });
+            dgvKho.Columns.Add(new DataGridViewTextBoxColumn { Name = "MaLoaiNguyenLieu", DataPropertyName = "MaLoaiNguyenLieu", Visible = false });
+            dgvKho.Columns.Add(new DataGridViewTextBoxColumn { Name = "MaDVT", DataPropertyName = "MaDVT", Visible = false });
+        }
 
 
 
+        //public void LoadDgvBep()
+        //{
+        //    List<NguyenLieuDTO> nguyenLieu = BUS_Kho.LayDanhSachNguyenLieuBep();
+        //    dgvBep.DataSource = nguyenLieu;
+        //    dgvBep.Columns["MaNguyenLieu"].HeaderText = "Mã Nguyên Liệu";
+        //    dgvBep.Columns["TenNguyenLieu"].HeaderText = "Tên Nguyên Liệu";
+        //    dgvBep.Columns["TenDVT"].HeaderText = "Đơn Vị Tính";
+        //    dgvBep.Columns["SoLuongTon"].HeaderText = "Số Lượng Tồn";
+        //    dgvBep.Columns["TrangThai"].HeaderText = "Trạng Thái";
+        //    dgvBep.Columns["MaLoaiNguyenLieu"].Visible = false;
+        //    dgvKho.Columns["TenLoaiNguyenLieu"].Visible = false;
+        //    dgvBep.Columns["MaDVT"].Visible = false;
+
+        //}
         public void LoadDgvBep()
         {
             List<NguyenLieuDTO> nguyenLieu = BUS_Kho.LayDanhSachNguyenLieuBep();
+            dgvBep.AutoGenerateColumns = false;
             dgvBep.DataSource = nguyenLieu;
-            dgvBep.Columns["MaNguyenLieu"].HeaderText = "Mã Nguyên Liệu";
-            dgvBep.Columns["TenNguyenLieu"].HeaderText = "Tên Nguyên Liệu";
-            dgvBep.Columns["TenDVT"].HeaderText = "Đơn Vị Tính";
-            dgvBep.Columns["SoLuongTon"].HeaderText = "Số Lượng Tồn";
-            dgvBep.Columns["TrangThai"].HeaderText = "Trạng Thái";
-            dgvBep.Columns["MaLoaiNguyenLieu"].Visible = false;
-            dgvKho.Columns["TenLoaiNguyenLieu"].Visible = false;
-            dgvBep.Columns["MaDVT"].Visible = false;
-            
+            dgvBep.Columns.Clear();
+
+            dgvBep.Columns.Add(new DataGridViewTextBoxColumn { Name = "MaNguyenLieu", DataPropertyName = "MaNguyenLieu", HeaderText = "Mã Nguyên Liệu" });
+            dgvBep.Columns.Add(new DataGridViewTextBoxColumn { Name = "TenNguyenLieu", DataPropertyName = "TenNguyenLieu", HeaderText = "Tên Nguyên Liệu" });
+            dgvBep.Columns.Add(new DataGridViewTextBoxColumn { Name = "TenDVT", DataPropertyName = "TenDVT", HeaderText = "Đơn Vị Tính" });
+            dgvBep.Columns.Add(new DataGridViewTextBoxColumn { Name = "SoLuongTon", DataPropertyName = "SoLuongTon", HeaderText = "Số Lượng Tồn" });
+            dgvBep.Columns.Add(new DataGridViewTextBoxColumn { Name = "TrangThai", DataPropertyName = "TrangThai", HeaderText = "Trạng Thái" });
+            dgvBep.Columns.Add(new DataGridViewTextBoxColumn { Name = "MaLoaiNguyenLieu", DataPropertyName = "MaLoaiNguyenLieu", Visible = false });
+            dgvBep.Columns.Add(new DataGridViewTextBoxColumn { Name = "TenLoaiNguyenLieu", DataPropertyName = "TenLoaiNguyenLieu", Visible = false });
+            dgvBep.Columns.Add(new DataGridViewTextBoxColumn { Name = "MaDVT", DataPropertyName = "MaDVT", Visible = false });
         }
+
 
 
         private void dgvKho_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -97,6 +116,21 @@ namespace WindowsFormsApplication1
 
         private void cmbTenLNL_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //if (cmbTenLNL.SelectedValue != null)
+            //{
+            //    string maLoaiNguyenLieu = cmbTenLNL.SelectedValue.ToString();
+
+            //    if (maLoaiNguyenLieu == "0") // Kiểm tra nếu "Tất cả" được chọn
+            //    {
+            //        LoadDgvKho(); // Tải toàn bộ dữ liệu
+            //    }
+            //    else
+            //    {
+            //        // Lấy dữ liệu từ BUS và cập nhật DataGridView theo loại nguyên liệu được chọn
+            //        DataTable dt = BUS_Kho.TimNguyenLieuTheoLoai(maLoaiNguyenLieu);
+            //        dgvKho.DataSource = dt; // Cập nhật DataGridView với dữ liệu mới
+            //    }
+            //}
             if (cmbTenLNL.SelectedValue != null)
             {
                 string maLoaiNguyenLieu = cmbTenLNL.SelectedValue.ToString();
@@ -272,7 +306,50 @@ namespace WindowsFormsApplication1
 
         private void frmKho_Load_1(object sender, EventArgs e)
         {
+            cmbTenLNL.SelectedValue = "0"; // Assuming "0" represents "Tất cả" in the ComboBox
 
+            // Load all data into the DataGridView
+            LoadDgvKho();
+        }
+
+        private void btnCapNhat_Click(object sender, EventArgs e)
+        {
+            if (dgvKho.SelectedRows.Count > 0)
+            {
+                // Lấy dòng đã chọn
+                DataGridViewRow selectedRow = dgvKho.SelectedRows[0];
+
+                // Lấy mã nguyên liệu và trạng thái từ dòng đã chọn
+                string maNguyenLieu = selectedRow.Cells["MaNguyenLieu"].Value.ToString();
+                string trangThaiHienTai = selectedRow.Cells["TrangThai"].Value.ToString();
+
+                // Kiểm tra trạng thái hiện tại
+                if (trangThaiHienTai == "Cần Nhập")
+                {
+                    MessageBox.Show("Sản phẩm đã ở trạng thái 'Cần Nhập'.");
+                }
+                else
+                {
+                    // Cập nhật trạng thái thông qua lớp Business Logic
+                    bool isUpdated = BUS_Kho.CapNhatTrangThaiTonKhoKho(maNguyenLieu, "Cần Nhập");
+
+                    if (isUpdated)
+                    {
+                        MessageBox.Show("Cập nhật trạng thái thành công.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cập nhật thất bại. Không tìm thấy sản phẩm.");
+                    }
+
+                    // Tải lại DataGridView để phản ánh thay đổi
+                    LoadDgvKho();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn một sản phẩm để cập nhật trạng thái.");
+            }
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using QLCuaHangKFC;
+using QLCuaHangKFC.GUI;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WindowsFormsApplication1.DTO;
+using WindowsFormsApplication1.GUI;
 
 namespace WindowsFormsApplication1.GUI
 {
@@ -15,6 +18,10 @@ namespace WindowsFormsApplication1.GUI
     {
         private NhanVienDTO nhanvien;
         public static string MaNhanVien;
+        private frmTrangChu trangChu;
+        private Size originalFormSize;
+        private Size originalPnlTrangchuSize;
+        private Point originalPnlTrangchuLocation;
         public frmTrangChu(NhanVienDTO nhanvien)
         {
             InitializeComponent();
@@ -22,95 +29,108 @@ namespace WindowsFormsApplication1.GUI
             lblTennhanvien.Text = "Xin chào: " + nhanvien.TenNhanVien;
             PhanQuyen();
             MaNhanVien = nhanvien.MaNhanVien;
+            btnQuaylai.Visible = false;
         }
 
-        void loadBtnQuayLai()
+        private void loadBtnQuayLai()
         {
-            btnQuaylai.Visible = true;
-            btnQuaylai.BringToFront();
+            if (pnlTrangchu.Controls.Count > 0)
+            {
+                btnQuaylai.Visible = true;
+                btnQuaylai.BringToFront();
+            }
+            else
+            {
+                btnQuaylai.Visible = false;
+            }
         }
-
-        private void OpenFormInCorner(Form form)
+        private bool IsDataValidToClose()
         {
-            form.TopLevel = false; // Cho phép form con không phải là top-level
-            form.FormBorderStyle = FormBorderStyle.None; // Ẩn viền của form
-            pnlTrangchu.Controls.Add(form); // Thêm form vào Controls của MainForm
-            form.Dock = DockStyle.Fill; // Đặt form chiếm toàn bộ không gian của panel
-            form.Show(); // Hiển thị form
-            form.BringToFront(); // Đưa form nhỏ lên trên cùng
+            // Duyệt qua các form con hiện tại
+            foreach (Control control in pnlTrangchu.Controls)
+            {
+                if (control is Form form && form is frmDatMon datMonForm)
+                {
+                    // Kiểm tra nếu form chứa `DataGridView` còn dữ liệu
+                    if (datMonForm.dgvDanhSachMonChon.Rows.Count > 0)
+                    {
+                        var result = MessageBox.Show(
+                            "Danh sách món chọn vẫn còn dữ liệu. Bạn có chắc chắn muốn tiếp tục?",
+                            "Cảnh báo",
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Warning
+                        );
+
+                        // Nếu người dùng chọn "No", không cho phép đóng/chuyển form
+                        if (result == DialogResult.No)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
         }
-
-        private void OpenFormInCorner1(Form form)
+        private void OpenFormInCorner1(Form childForm)
         {
-            pnlLeft.Hide();
+            // Kiểm tra dữ liệu trước khi chuyển đổi
+            if (!CanSwitchForm())
+            {
+                return; // Không làm gì nếu dữ liệu chưa được xử lý
+            }
+
+            // Tiếp tục logic mở form nếu kiểm tra thành công
+            if (originalFormSize == Size.Empty)
+            {
+                originalFormSize = this.Size;
+                originalPnlTrangchuSize = pnlTrangchu.Size;
+                originalPnlTrangchuLocation = pnlTrangchu.Location;
+            }
+
+            pnlTrangchu.BackgroundImage = null;
+            btnDangxuat.Visible = false;
+            lblTennhanvien.Visible = false;
+
+            // Đóng các form con hiện tại
+            foreach (Control control in pnlTrangchu.Controls)
+            {
+                if (control is Form form)
+                {
+                    form.Close();
+                }
+            }
+
+            pnlTrangchu.Controls.Clear();
+
+            int menuStripHeight = menuStrip1.Height;
+            int formWidth = childForm.Width;
+            int formHeight = childForm.Height;
+
+            pnlTrangchu.Location = new Point(btnQuaylai.Right, menuStripHeight);
+            pnlTrangchu.Size = new Size(formWidth, formHeight);
+            this.Size = new Size(formWidth + btnQuaylai.Right, formHeight + menuStripHeight);
+
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            pnlTrangchu.Controls.Add(childForm);
+            childForm.Show();
+
+            childForm.Location = new Point(
+                (pnlTrangchu.Width - formWidth) / 2,
+                (pnlTrangchu.Height - formHeight) / 2
+            );
+
             pnlTrangchu.BringToFront();
-            // Lưu các form hiện tại trong pnlTrangchu vào danh sách
-            var openForms = new List<Form>();
-            foreach (Control ctrl in pnlTrangchu.Controls)
-            {
-                if (ctrl is Form existingForm)
-                {
-                    openForms.Add(existingForm);
-                }
-            }
-
-            // Đóng tất cả các form hiện tại
-            foreach (var existingForm in openForms)
-            {
-                existingForm.Close();
-            }
-
-            // Thiết lập form mới
-            form.TopLevel = false; // Cho phép form con không phải là top-level
-            form.FormBorderStyle = FormBorderStyle.None; // Ẩn viền của form
-            form.StartPosition = FormStartPosition.Manual; // Định vị trí thủ công
-
-            // Kiểm tra kích thước của form con và panel
-            if (form.ClientSize.Width > pnlTrangchu.ClientSize.Width || form.ClientSize.Height > pnlTrangchu.ClientSize.Height)
-            {
-                form.Size = new Size(
-                    Math.Min(form.ClientSize.Width, pnlTrangchu.ClientSize.Width),
-                    Math.Min(form.ClientSize.Height, pnlTrangchu.ClientSize.Height)
-                );
-            }
-
-            // Tính toán vị trí trung tâm của form trong pnlTrangChu
-            int centerX = (pnlTrangchu.ClientSize.Width - form.ClientSize.Width) / 2 - 150;
-            int centerY = (pnlTrangchu.ClientSize.Height - form.ClientSize.Height) / 2 - 50;
-            form.Location = new Point(Math.Max(0, centerX), Math.Max(0, centerY));
-
-            // Thêm form vào Panel và hiển thị
-            pnlTrangchu.Controls.Add(form);
-            form.Show();
-            form.BringToFront(); // Đưa form lên trên cùng
+            menuStrip1.BringToFront();
+            loadBtnQuayLai();
         }
-
-        private void CloseAllChildForms()
-        {
-            var formsToClose = new List<Form>(); // Danh sách để lưu trữ các form nhỏ cần đóng
-
-            // Lưu trữ các form nhỏ vào danh sách
-            foreach (Form form in Application.OpenForms)
-            {
-                // Kiểm tra nếu form không phải là form hiện tại (this) và không phải frmTrangChu
-                if (form != this && form.Name != "frmTrangChu" && form.Name !="frmDangNhap")
-                {
-                    formsToClose.Add(form);
-                }
-            }
-
-            // Đóng tất cả các form trong danh sách
-            foreach (var form in formsToClose)
-            {
-                form.Close();
-            }
-        }
-
 
 
         private void frmTrangChu_Load(object sender, EventArgs e)
         {
-
+            originalFormSize = this.Size;
+            originalPnlTrangchuSize = pnlTrangchu.Size;
+            originalPnlTrangchuLocation = pnlTrangchu.Location;
         }
 
         private void btnDangxuat_Click(object sender, EventArgs e)
@@ -130,70 +150,67 @@ namespace WindowsFormsApplication1.GUI
                 case "LNV001":
                     break;
                 case "LNV002":
-                   
+
                     gọiMónToolStripMenuItem.Enabled = false;
                     nhânSựToolStripMenuItem.Enabled = false;
                     thốngKêToolStripMenuItem.Enabled = false;
                     hệThốngToolStripMenuItem.Enabled = false;
                     danhMụcToolStripMenuItem.Enabled = false;
                     khoToolStripMenuItem.Enabled = false;
+                    sảnPhẩmToolStripMenuItem.Enabled = false;
                     break;
                 case "LNV003":
-                   
+
                     bếpToolStripMenuItem.Enabled = false;
                     nhânSựToolStripMenuItem.Enabled = false;
                     thốngKêToolStripMenuItem.Enabled = false;
                     hệThốngToolStripMenuItem.Enabled = false;
                     danhMụcToolStripMenuItem.Enabled = false;
-                    gọiMónToolStripMenuItem.Enabled = false;
+                    sảnPhẩmToolStripMenuItem.Enabled = false;
+                    khoToolStripMenuItem.Enabled = false;
                     break;
                 case "LNV004":
-                   
+
                     bếpToolStripMenuItem.Enabled = false;
                     nhânSựToolStripMenuItem.Enabled = false;
                     thốngKêToolStripMenuItem.Enabled = false;
                     hệThốngToolStripMenuItem.Enabled = false;
                     danhMụcToolStripMenuItem.Enabled = false;
                     khoToolStripMenuItem.Enabled = false;
+                    sảnPhẩmToolStripMenuItem.Enabled = false;
                     break;
                 case "LNV005":
-                    
+
                     bếpToolStripMenuItem.Enabled = false;
                     nhânSựToolStripMenuItem.Enabled = false;
                     thốngKêToolStripMenuItem.Enabled = false;
                     hệThốngToolStripMenuItem.Enabled = false;
                     danhMụcToolStripMenuItem.Enabled = false;
-                    khoToolStripMenuItem.Enabled = false;
+                    sảnPhẩmToolStripMenuItem.Enabled = false;
+                    danhMụcToolStripMenuItem.Enabled = false;
+                    gọiMónToolStripMenuItem.Enabled = false;
+                    //khoToolStripMenuItem.Enabled = false;
                     break;
                 default:
                     MessageBox.Show("Loại nhân viên không hợp lệ.");
                     break;
             }
         }
-
-        private void AnForm(List<string> formAn)
-        {
-            foreach(var form in formAn)
-            {
-                return;
-            }
-        }
-
         private void btnSystem_Click(object sender, EventArgs e)
         {
             //CloseAllChildForms();
-            OpenFormInCorner(new frmHeThong());
+            //OpenFormInCorner(new frmHeThong());
         }
 
         private void btnDoimatkhau_Click(object sender, EventArgs e)
         {
             //CloseAllChildForms();
-            OpenFormInCorner(new frmDoiMatKhau());
+            OpenFormInCorner1(new frmDoiMatKhau());
         }
 
         private void btnNhansu_Click(object sender, EventArgs e)
         {
-            OpenFormInCorner(new frmQuanLyNhanVien());
+            OpenFormInCorner1(new frmQuanLyNhanVien());
         }
 
         private void frmTrangChu_FormClosing(object sender, FormClosingEventArgs e)
@@ -223,163 +240,207 @@ namespace WindowsFormsApplication1.GUI
 
         private void saoLưuToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //frmSaoLuu frmSl = new frmSaoLuu();
-            //frmSl.ShowDialog();
-            //CloseAllChildForms();
             OpenFormInCorner1(new frmSaoLuu());
-            loadBtnQuayLai();
         }
 
         private void phụcHồiToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //CloseAllChildForms();
             OpenFormInCorner1(new frmPhucHoi());
-            loadBtnQuayLai();
         }
 
         private void phânQuyềnToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //CloseAllChildForms();
             OpenFormInCorner1(new frmPhanQuyen());
-            loadBtnQuayLai();
         }
 
         private void quảnLýNhânSựToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFormInCorner1(new frmQuanLyNhanVien());
-            loadBtnQuayLai();
         }
 
         private void đơnVịTínhToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFormInCorner1(new frmDonViTinh());
-            loadBtnQuayLai();
-        }
-
-        private void btnQuaylai_Click(object sender, EventArgs e)
-        {
-            foreach (Control ctrl in pnlTrangchu.Controls)
-            {
-                if (ctrl is Form)
-                {
-                    ((Form)ctrl).Close();
-                }
-            }
-            btnQuaylai.Visible = false; 
-            pnlLeft.Show();
-            pnlTrangchu.SendToBack();
         }
 
         private void loạiNguyênLiệuToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void loạiMónĂnToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFormInCorner1(new frmLoaiMonAn());
-            loadBtnQuayLai();
         }
 
         private void quảnLýLịchLàmViệcToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFormInCorner1(new frmLichLamViec());
-            loadBtnQuayLai();
         }
 
         private void khuyếnMãiToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFormInCorner1(new frmKhuyenMai());
-            loadBtnQuayLai();
-        }
-
-        private void đổiMậtKhẩuToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OpenFormInCorner1(new frmDoiMatKhau());
-            loadBtnQuayLai();
         }
 
         private void doanhThuToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFormInCorner1(new frmThongKeDoanhThu());
-            loadBtnQuayLai();
+            string tenNhanVien = lblTennhanvien.Text;
+            OpenFormInCorner1(new frmThongKeDoanhThu(tenNhanVien));
         }
 
-        private void gọiMónToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OpenFormInCorner1(new frmDatMon());
-            loadBtnQuayLai();
-        }
 
         private void quảnLýMónĂnToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFormInCorner1(new frmQuanLyMonAn());
-            loadBtnQuayLai();
         }
 
         private void tàiKhoảnNgânHàngToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFormInCorner1(new frmTaiKhoanNganHang());
-            loadBtnQuayLai();
         }
 
         private void quảnLýComboToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFormInCorner1(new frmQuanLyCombo());
-            loadBtnQuayLai();
         }
 
         private void bếpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFormInCorner1(new frmBep());
-            loadBtnQuayLai();
         }
 
         private void đặtHàngToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFormInCorner1(new frmDatHang());
-            loadBtnQuayLai();
+            string maNV = MaNhanVien;
+            OpenFormInCorner1(new frmDatHang(maNV));
         }
 
         private void nhậpKhoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFormInCorner1(new frmNhapKho());
-            loadBtnQuayLai();
         }
 
         private void xuấtKhoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFormInCorner1(new frmKho());
-            loadBtnQuayLai();
         }
 
         private void nhàCungCấpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFormInCorner1(new frmTaoNhaCungCap());
-            loadBtnQuayLai();
         }
 
         private void thêmNguyênLiệuMớiToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void loạiNguyênLiệuToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             OpenFormInCorner1(new frmLoaiNguyenLieu());
-            loadBtnQuayLai();
         }
 
         private void thêmNguyênLiệuMớiToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             OpenFormInCorner1(new frmTaoNguyenLieu());
-            loadBtnQuayLai();
         }
 
         private void lịchSửXuấtKhoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFormInCorner1(new frmLichSuXuatKho());
-            loadBtnQuayLai();
+        }
+
+        private void tồnKhoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string tenNhanVien = lblTennhanvien.Text;
+            OpenFormInCorner1(new frmThongKeTonKho(tenNhanVien));
+        }
+
+        private void bànĂnToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFormInCorner1(new frmBanAn());
+        }
+
+        private void gọiMónToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+                string maNV = MaNhanVien;
+                OpenFormInCorner1(new frmDatMon(maNV));
+        }
+
+
+
+        private void trangChủToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+        }
+        private bool CanSwitchForm()
+        {
+            // Duyệt qua các control hiện tại trong pnlTrangchu
+            foreach (Control control in pnlTrangchu.Controls)
+            {
+                if (control is Form form && form is frmDatMon datMonForm)
+                {
+                    // Kiểm tra DataGridView còn dữ liệu không
+                    if (datMonForm.dgvDanhSachMonChon.Rows.Count > 0)
+                    {
+                        // Hiển thị thông báo và không cho phép chuyển form
+                        MessageBox.Show(
+                            "Danh sách món chọn vẫn còn dữ liệu. Vui lòng hoàn tất trước khi chuyển đổi form!",
+                            "Thông báo",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning
+                        );
+                        return false;
+                    }
+                }
+            }
+
+            // Cho phép chuyển form nếu không có dữ liệu còn lại
+            return true;
+        }
+
+
+
+        private void btnQuaylai_Click_1(object sender, EventArgs e)
+        {
+            if (CanSwitchForm())
+            {
+                foreach (Control control in pnlTrangchu.Controls)
+                {
+                    if (control is Form form)
+                    {
+                        form.Close();
+                    }
+                }
+                pnlTrangchu.Controls.Clear();
+                btnQuaylai.Visible = false;
+                this.Size = originalFormSize;
+                pnlTrangchu.Location = originalPnlTrangchuLocation;
+                pnlTrangchu.Size = originalPnlTrangchuSize;
+                btnDangxuat.Visible = true;
+                lblTennhanvien.Visible = true;
+                pnlTrangchu.BackgroundImage = Properties.Resources.bg_kfc;
+            }
+        }
+
+        private void pnlTrangchu_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void danhSáchHóaĐơnToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFormInCorner1(new frmDanhSachHoaDon());
+        }
+
+        private void kháchHàngToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            OpenFormInCorner1(new frmKhachHang());
+        }
+
+        private void đổiMậtKhẩuToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            OpenFormInCorner1(new frmDoiMatKhau());
         }
     }
 }

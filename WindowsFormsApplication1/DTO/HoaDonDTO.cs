@@ -15,12 +15,9 @@ namespace WindowsFormsApplication1.DTO
         public decimal Total { get; set; }
         public decimal Tax { get; set; }
         public decimal Discount { get; set; }
-        public int UsedPoints { get; set; }
         public decimal FinalAmount { get; set; }
-        public decimal CustomerPaid { get; set; }
-        public decimal Change { get; set; }
-        public int ReceivedPoints { get; set; }
         public string Date { get; set; }
+
     }
 
     // DTO for Invoice Item (either an item or a combo)

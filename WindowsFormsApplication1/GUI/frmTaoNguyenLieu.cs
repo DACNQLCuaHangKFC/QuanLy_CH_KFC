@@ -23,8 +23,24 @@ namespace WindowsFormsApplication1
             InitializeComponent();
             LoadComboboxDVT();
             LoadComboboxLNL();
+            LoadDgvKho();
         }
+        public void LoadDgvKho()
+        {
+            List<NguyenLieuDTO> nguyenLieu = BUS_Kho.LayDanhSachNguyenLieuKho();
+            dgvKho.AutoGenerateColumns = false;
+            dgvKho.DataSource = nguyenLieu;
+            dgvKho.Columns.Clear();
 
+            dgvKho.Columns.Add(new DataGridViewTextBoxColumn { Name = "MaNguyenLieu", DataPropertyName = "MaNguyenLieu", HeaderText = "Mã Nguyên Liệu" });
+            dgvKho.Columns.Add(new DataGridViewTextBoxColumn { Name = "TenNguyenLieu", DataPropertyName = "TenNguyenLieu", HeaderText = "Tên Nguyên Liệu" });
+            dgvKho.Columns.Add(new DataGridViewTextBoxColumn { Name = "TenDVT", DataPropertyName = "TenDVT", HeaderText = "Đơn Vị Tính" });
+            dgvKho.Columns.Add(new DataGridViewTextBoxColumn { Name = "SoLuongTon", DataPropertyName = "SoLuongTon", HeaderText = "Số Lượng Tồn" });
+            dgvKho.Columns.Add(new DataGridViewTextBoxColumn { Name = "TrangThai", DataPropertyName = "TrangThai", HeaderText = "Trạng Thái" });
+            dgvKho.Columns.Add(new DataGridViewTextBoxColumn { Name = "TenLoaiNguyenLieu", DataPropertyName = "TenLoaiNguyenLieu", Visible = false });
+            dgvKho.Columns.Add(new DataGridViewTextBoxColumn { Name = "MaLoaiNguyenLieu", DataPropertyName = "MaLoaiNguyenLieu", Visible = false });
+            dgvKho.Columns.Add(new DataGridViewTextBoxColumn { Name = "MaDVT", DataPropertyName = "MaDVT", Visible = false });
+        }
         private void button1_Click(object sender, EventArgs e)
         {
 

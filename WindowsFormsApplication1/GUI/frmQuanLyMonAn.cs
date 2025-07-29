@@ -113,6 +113,8 @@ namespace WindowsFormsApplication1.GUI
             dgvNguyenLieu.Columns["TenNguyenLieu"].HeaderText = "Tên Nguyên Liệu";
             dgvNguyenLieu.Columns["TenDVT"].HeaderText = "Tên Đơn Vị Tính";
             dgvNguyenLieu.Columns["TenLoaiNguyenLieu"].HeaderText = "Tên Loại Nguyên Liệu";
+            dgvNguyenLieu.Columns["TrangThai"].Visible = false;
+            dgvNguyenLieu.Columns["SoLuongTon"].Visible = false;
 
             // Ẩn các cột không cần thiết nếu có
             dgvNguyenLieu.Columns["MaDVT"].Visible = false; // Nếu không cần hiển thị mã DVT

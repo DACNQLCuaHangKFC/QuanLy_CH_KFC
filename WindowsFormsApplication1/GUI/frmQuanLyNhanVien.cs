@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsApplication1.BUS;
 
 namespace WindowsFormsApplication1.GUI
 {
@@ -19,7 +20,7 @@ namespace WindowsFormsApplication1.GUI
 
         void loadDgvNhanVien()
         {
-            dgvNhanvien.DataSource = DAL.NhanVienDAL.hienThiNhanVien();
+            dgvNhanvien.DataSource = BUS.NhanVienBUS.hienThiNhanVien();
         }
 
         private void frmQuanLyNhanVien_Load(object sender, EventArgs e)
@@ -35,7 +36,6 @@ namespace WindowsFormsApplication1.GUI
             txtDiaChi.Clear();
             txtHinhthuc.Clear();
             txtLuong.Clear();
-            txtMatkhau.Clear();
         }
 
         private void dgvNhanvien_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -47,7 +47,7 @@ namespace WindowsFormsApplication1.GUI
             txtDiaChi.Text = dgvNhanvien.Rows[index].Cells[3].Value.ToString();
             txtHinhthuc.Text = dgvNhanvien.Rows[index].Cells[4].Value.ToString();
             txtLuong.Text = dgvNhanvien.Rows[index].Cells[6].Value.ToString();
-            txtMatkhau.Text = dgvNhanvien.Rows[index].Cells[7].Value.ToString();
+            //txtMatkhau.Text = dgvNhanvien.Rows[index].Cells[7].Value.ToString();
 
         }
 
@@ -147,26 +147,6 @@ namespace WindowsFormsApplication1.GUI
             }
         }
 
-        private void btnXoa_Click(object sender, EventArgs e)
-        {
-            BUS.NhanVienBUS nv = new BUS.NhanVienBUS();
-            string maNV = txtMaNV.Text;
-            DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa nhân viên này không?", "Xác Nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (result == DialogResult.Yes)
-            {
-                bool kq=nv.XoaNhanVien(maNV);
-                if (kq)
-                {
-                    MessageBox.Show("Xóa nhân viên thành công.");
-                    loadDgvNhanVien();
-                    xoaNoiDung();
-                }
-                else
-                {
-                    MessageBox.Show("Xóa nhân viên thất bại.");
-                }
-            }
-        }
 
         private void txtLuong_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -198,6 +178,40 @@ namespace WindowsFormsApplication1.GUI
         private void btnHuybo_Click(object sender, EventArgs e)
         {
             xoaNoiDung();
+        }
+
+        private void dgvNhanvien_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void btnResetMatKhau_Click(object sender, EventArgs e)
+        {
+            if (dgvNhanvien.CurrentRow == null)
+            {
+                MessageBox.Show("Vui lòng chọn nhân viên để reset mật khẩu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string maNhanVien = txtMaNV.Text;
+            DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn reset mật khẩu nhân viên này về '123' không?","Xác nhận",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    NhanVienBUS nhanVienBUS = new NhanVienBUS();
+                    bool kq = nhanVienBUS.ResetMatKhau(maNhanVien);
+
+                    if (kq)
+                    {
+                        MessageBox.Show("Reset mật khẩu về mặc định thành công. Mật khẩu mới là '123'.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }

@@ -118,6 +118,11 @@ namespace WindowsFormsApplication1
             {
                 // Gán dữ liệu vào DataGridView
                 dgvPhieuNhap.DataSource = danhSachPhieuNhap;
+                dgvPhieuNhap.Columns["MaPhieuNhapHang"].HeaderText = "Mã Phiếu Nhập Hàng";
+                dgvPhieuNhap.Columns["NgayNhap"].HeaderText = "Ngày Nhập";
+                dgvPhieuNhap.Columns["TenNCC"].HeaderText = "Tên NCC";
+                dgvPhieuNhap.Columns["TrangThaiPhieu"].HeaderText = "Trạng Thái Phiếu";
+                dgvPhieuNhap.Columns["TongGiaTri"].HeaderText = "Tổng Giá Trị";
             }
             else
             {

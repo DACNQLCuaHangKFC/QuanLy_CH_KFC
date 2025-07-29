@@ -14,6 +14,7 @@ namespace WindowsFormsApplication1.GUI
 {
     public partial class frmKetNoi : Form
     {
+        private string configFilePath;// = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Config", "config.env");
         public frmKetNoi()
         {
             InitializeComponent();
@@ -92,16 +93,18 @@ namespace WindowsFormsApplication1.GUI
             }
             else
             {
-                connString = @"Data Source=" + txtServerName.Text.Trim() + ";Initial Catalog=" + cboDatabase.SelectedValue.ToString() + ";User ID=" + txtUserName.Text.Trim() + ";password=" + txtPassword.Text.Trim();
+                connString = @"Data Source=" + txtServerName.Text.Trim() + ";Initial Catalog=" + cboDatabase.SelectedValue.ToString() + ";User ID=" + txtUserName.Text.Trim() + ";Password=" + txtPassword.Text.Trim();
             }
 
             SqlConnection conn = new SqlConnection(connString);
 
-            conn.Open();
             try
             {
-                SqlCommand command = new SqlCommand("TESTCONNECTION", conn);
-                command.CommandType = CommandType.StoredProcedure;
+                conn.Open();
+                SqlCommand command = new SqlCommand("TESTCONNECTION", conn)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
                 SqlDataReader dataReader = command.ExecuteReader();
                 bool flag = false;
 
@@ -118,9 +121,30 @@ namespace WindowsFormsApplication1.GUI
                 if (flag)
                 {
                     flag = false;
-                    File.WriteAllText("config.env", connString);
-                    this.Hide();
-                    new frmKiemTraDB().Show();
+
+                    // Kiểm tra thư mục Config
+                    string projectRoot = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory)?.Parent?.Parent?.FullName;
+                    string configFilePath = Path.Combine(projectRoot, "Config", "config.env");
+
+                    // Kiểm tra thư mục Config
+                    string configDir = Path.GetDirectoryName(configFilePath);
+                    if (!Directory.Exists(configDir))
+                    {
+                        Directory.CreateDirectory(configDir);
+                    }
+
+                    try
+                    {
+                        File.WriteAllText(configFilePath, connString);
+                        MessageBox.Show($"Chuỗi kết nối đã được cập nhật tại: {configFilePath}", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Lỗi khi ghi file config.env: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    this.Hide(); 
+                    new frmDangNhap().Show();
                 }
                 else
                 {
@@ -131,13 +155,27 @@ namespace WindowsFormsApplication1.GUI
             {
                 conn.Close();
                 MessageBox.Show("Vui lòng cấp quyền ghi file config.env.\n" + ex.Message);
-                return;
             }
         }
 
         private void frmKetNoi_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void cboQuyen_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var selectedValue = cboQuyen.SelectedValue.ToString();
+            if (selectedValue == "1")
+            {
+                txtPassword.Enabled = false;
+                txtUserName.Enabled = false;
+            }
+            else
+            {
+                txtPassword.Enabled = true;
+                txtUserName.Enabled = true;
+            }
         }
     }
 }

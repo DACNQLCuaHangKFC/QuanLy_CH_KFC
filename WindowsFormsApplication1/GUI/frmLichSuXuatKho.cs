@@ -60,17 +60,14 @@ namespace WindowsFormsApplication1
             //}
             List<LichSuXuatKhoDTO> lstLichSuXuatKho = busLichSuXuatKho.LichSuXuatKho();
             dgvLichSuXuat.DataSource = lstLichSuXuatKho;
-        }
 
-        private void btnTroVe_Click(object sender, EventArgs e)
-        {
-            frmKho frmKho = new frmKho();
-            this.Hide();
-            frmKho.ShowDialog();
-            this.Show();
-            
+            dgvLichSuXuat.Columns["MaXuatKho"].HeaderText = "Mã Xuất Kho";
+            dgvLichSuXuat.Columns["MaNguyenLieu"].HeaderText = "Mã Nguyên Liệu";
+            dgvLichSuXuat.Columns["MaDiaDiemXuat"].HeaderText = "Mã Địa Điểm Xuất";
+            dgvLichSuXuat.Columns["MaDiaDiemNhap"].HeaderText = "Mã Địa Điểm Nhập";
+            dgvLichSuXuat.Columns["SoLuong"].HeaderText = "Số Lượng";
+            dgvLichSuXuat.Columns["NgayThucHien"].HeaderText = "Ngày Thực Hiện";
         }
-
         private void btnHuy_Click(object sender, EventArgs e)
         {
             dtpNgayBatDau.Value = DateTime.Now;

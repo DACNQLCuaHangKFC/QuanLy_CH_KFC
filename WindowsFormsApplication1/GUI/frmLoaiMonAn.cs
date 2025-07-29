@@ -15,8 +15,19 @@ namespace WindowsFormsApplication1.GUI
         public frmLoaiMonAn()
         {
             InitializeComponent();
+            AutoResizeDataGridView(dgrvLoaimonan);
         }
+        public void AutoResizeDataGridView(DataGridView dgv)
+        {
+            // Set the AutoSizeColumnsMode to Fill to have columns adjust to fill the entire width
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
+            // Additionally, you can specify minimum widths or other settings for individual columns if needed
+            foreach (DataGridViewColumn column in dgv.Columns)
+            {
+                column.MinimumWidth = 50; // Set a minimum width as an example, adjust as needed
+            }
+        }
         void loadDgrvLoaimonan()
         {
             dgrvLoaimonan.DataSource = BUS.LoaiMonAnBUS.hienThiLoaiMonAn();
@@ -81,26 +92,6 @@ namespace WindowsFormsApplication1.GUI
             }
         }
 
-        private void btnXoa_Click(object sender, EventArgs e)
-        {
-            BUS.LoaiMonAnBUS lma = new BUS.LoaiMonAnBUS();
-            string maLma = txtMaLMA.Text;
-            DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa loại món ăn này không?", "Xác Nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (result == DialogResult.Yes)
-            {
-                bool kq = lma.XoaLoaiMonAn(maLma);
-                if (kq)
-                {
-                    MessageBox.Show("Xóa loại món ăn thành công.");
-                    loadDgrvLoaimonan();
-                    xoaNoiDung();
-                }
-                else
-                {
-                    MessageBox.Show("Xóa loại món ăn thất bại.");
-                }
-            }
-        }
 
         private void btnCapnhat_Click(object sender, EventArgs e)
         {

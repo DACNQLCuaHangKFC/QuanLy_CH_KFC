@@ -130,12 +130,13 @@ namespace WindowsFormsApplication1.DAL
             return dbConnect.ExecuteQuery(query, parameters, CommandType.StoredProcedure);
         }
 
-        public DataTable LayChiTietPhieuNhapTheoMa(string maPhieuNhapHang)
+        public DataTable LayChiTietPhieuNhapTheoMa(string maPhieuNhapHang,string maNCC)
         {
             string query = "sp_LayChiTietPhieuNhapTheoMa";
             SqlParameter[] parameters = new SqlParameter[]
             {
-                new SqlParameter("@MaPhieuNhapHang", maPhieuNhapHang)
+                new SqlParameter("@MaPhieuNhapHang", maPhieuNhapHang),
+                new SqlParameter("@MaNCC", maNCC)
             };
 
             return dbConnect.ExecuteQuery(query, parameters, CommandType.StoredProcedure);

@@ -1,5 +1,4 @@
-﻿using WindowsFormsApplication1.BUS;
-using WindowsFormsApplication1.DTO;
+﻿
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +10,8 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsApplication1.BUS;
+using WindowsFormsApplication1.DTO;
 
 namespace WindowsFormsApplication1.GUI
 {

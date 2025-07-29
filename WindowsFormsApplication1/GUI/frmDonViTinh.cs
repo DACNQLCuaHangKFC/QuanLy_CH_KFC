@@ -37,11 +37,7 @@ namespace WindowsFormsApplication1.GUI
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            if(txtMaDVT.Text!=string.Empty)
-            {
-                MessageBox.Show("Vui lòng nhấn nút Hủy bỏ để xóa thông tin đang được nhập trước khi thêm mới", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else if(txtTenDVT.Text==string.Empty)
+            if(txtTenDVT.Text==string.Empty)
             {
                 MessageBox.Show("Tên đơn vị tính không được để trống!! Vui lòng điền đầy đủ", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -77,32 +73,11 @@ namespace WindowsFormsApplication1.GUI
             txtTenDVT.Text = dgrvDonvitinh.Rows[index].Cells[1].Value.ToString();
         }
 
-        private void btnXoa_Click(object sender, EventArgs e)
-        {
-            BUS.DonViTinhBUS dvt = new BUS.DonViTinhBUS();
-            string maDvt = txtMaDVT.Text;
-            DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa đơn vị tính này không?", "Xác Nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (result == DialogResult.Yes)
-            {
-                bool kq = dvt.XoaDonViTinh(maDvt);
-                if (kq)
-                {
-                    MessageBox.Show("Xóa đơn vị tính thành công.");
-                    loadDgrvDonvitinh();
-                    xoaNoiDung();
-                }
-                else
-                {
-                    MessageBox.Show("Xóa đơn vị tính thất bại.");
-                }
-            }
-        }
-
         private void btnCapnhat_Click(object sender, EventArgs e)
         {
             if (txtMaDVT.Text == string.Empty)
             {
-                MessageBox.Show("Mã đơn vị tính không được để trống!! Vui lòng nhấn nút tạo mã DVT bên dưới để tạo mới", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Mã đơn vị tính không được để trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (txtTenDVT.Text == string.Empty)
             {

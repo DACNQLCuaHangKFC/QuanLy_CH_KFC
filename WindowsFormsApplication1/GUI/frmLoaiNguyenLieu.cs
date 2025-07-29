@@ -15,8 +15,19 @@ namespace WindowsFormsApplication1.GUI
         public frmLoaiNguyenLieu()
         {
             InitializeComponent();
+            AutoResizeDataGridView(dgrvLoainguyenlieu);
         }
+        public void AutoResizeDataGridView(DataGridView dgv)
+        {
+            // Set the AutoSizeColumnsMode to Fill to have columns adjust to fill the entire width
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
+            // Additionally, you can specify minimum widths or other settings for individual columns if needed
+            foreach (DataGridViewColumn column in dgv.Columns)
+            {
+                column.MinimumWidth = 50; // Set a minimum width as an example, adjust as needed
+            }
+        }
         void loadDgrvLoainguyenlieu()
         {
             dgrvLoainguyenlieu.DataSource = BUS.LoaiNguyenLieuBUS.hienThiLoaiNguyenLieu();
@@ -69,26 +80,6 @@ namespace WindowsFormsApplication1.GUI
             }
         }
 
-        private void btnXoa_Click(object sender, EventArgs e)
-        {
-            BUS.LoaiNguyenLieuBUS lnl = new BUS.LoaiNguyenLieuBUS();
-            string maLnl = txtMaLNL.Text;
-            DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa loại nguyên liệu này không?", "Xác Nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (result == DialogResult.Yes)
-            {
-                bool kq = lnl.XoaLoaiNguyenLieu(maLnl);
-                if (kq)
-                {
-                    MessageBox.Show("Xóa loại nguyên liệu thành công.");
-                    loadDgrvLoainguyenlieu();
-                    xoaNoiDung();
-                }
-                else
-                {
-                    MessageBox.Show("Xóa loại nguyên liệu thất bại.");
-                }
-            }
-        }
 
         private void btnCapnhat_Click(object sender, EventArgs e)
         {

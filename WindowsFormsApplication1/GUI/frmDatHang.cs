@@ -18,7 +18,8 @@ namespace WindowsFormsApplication1.GUI
     {
         BUS_Kho BUS_Kho = new BUS_Kho();
         BUS_DATHANG bus = new BUS_DATHANG();
-        public frmDatHang()
+        private string maNV;
+        public frmDatHang(string maNV)
         {
             InitializeComponent();
             LoadComboBoxNhaCungCap();
@@ -27,26 +28,18 @@ namespace WindowsFormsApplication1.GUI
             InitializedgvLN();
             LoadDgvKho();
             LoadTrangThaiComboBox();
-            //InitializedgvKho();
             dgvPhieuNhap.CellClick += dgvPhieuNhap_CellClick;
             btnHuyPhieu.Enabled = false;
+            btnInHoaDon.Enabled = false;
+            btnThanhToan.Enabled = false;
+            btnHuy.Enabled = false;
+            btnThem.Enabled = false;
+            btnXoa.Enabled = false;
+            btnXacNhan.Enabled = false;
             txtTimKiem.TextChanged += txtTimKiem_TextChanged;
-
+            this.maNV = maNV;
+            txtMaNV.Text = maNV;
         }
-        //private void InitializedgvKho()
-        //{
-        //    // Xóa tất cả các cột hiện tại (nếu có)
-        //    dgvKho.Columns.Clear();
-
-        //    // Tạo các cột cho DataGridView
-        //    dgvKho.Columns.Add("MaNguyenLieu", "Mã Nguyên Liệu");
-        //    dgvKho.Columns.Add("TenNguyenLieu", "Tên Nguyên Liệu");
-        //    dgvKho.Columns.Add("TenDVT", "Đơn Vị Tính");
-        //    dgvKho.Columns.Add("SoLuongTon", "Số Lượng Tồn");
-        //    dgvKho.Columns.Add("TrangThai", "Trạng Thái");
-
-        //    // Bạn có thể tùy chỉnh thêm thuộc tính cho các cột ở đây nếu cần
-        //}
         private void InitializedgvCTPN()
         {
             // Xóa tất cả các cột hiện tại (nếu có)
@@ -55,7 +48,9 @@ namespace WindowsFormsApplication1.GUI
             // Thêm cột cho DataGridView
             dgvChiTietPhieuNhap.Columns.Add("MaPhieuNhapHang", "Mã Phiếu Nhập");
             dgvChiTietPhieuNhap.Columns.Add("MaNguyenLieu", "Mã Nguyên Liệu");
+            dgvChiTietPhieuNhap.Columns.Add("TenNguyenLieu", "Tên Nguyên Liệu");
             dgvChiTietPhieuNhap.Columns.Add("SoLuong", "Số Lượng");
+            dgvChiTietPhieuNhap.Columns.Add("TenDVT", "Đơn Vị Tính");
             dgvChiTietPhieuNhap.Columns.Add("DonGia", "Đơn Giá");
             dgvChiTietPhieuNhap.Columns.Add("TongGia", "Tổng Giá");
             dgvChiTietPhieuNhap.Columns.Add("TrangThai", "Trạng Thái");
@@ -92,8 +87,6 @@ namespace WindowsFormsApplication1.GUI
             // Bạn có thể tùy chỉnh thêm thuộc tính cho các cột ở đây nếu cần
         }
 
-
-
         private void txtTimKiem_TextChanged(object sender, EventArgs e)
         {
             string searchText = txtTimKiem.Text; // TextBox để nhập từ khóa tìm kiếm
@@ -112,38 +105,7 @@ namespace WindowsFormsApplication1.GUI
             cmbNhaCungCap.DisplayMember = "TenNCC"; // Display supplier name
             cmbNhaCungCap.ValueMember = "MaNCC"; // Use MaNCC as value
         }
-        //private void LoadDgvKho()
-        //{
-        //    List<NguyenLieuDTO> nguyenLieu = BUS_Kho.HienThiDanhSachKhoCanNhap();
-
-        //    // Xóa tất cả các dòng hiện tại trong DataGridView
-        //    dgvKho.Rows.Clear();
-        //    InitializedgvKho();
-
-        //    // Kiểm tra số lượng nguyên liệu
-        //    Console.WriteLine($"Số lượng nguyên liệu: {nguyenLieu.Count}");
-
-        //    // Kiểm tra nếu danh sách không rỗng
-        //    if (nguyenLieu != null && nguyenLieu.Count > 0)
-        //    {
-        //        // Duyệt qua từng nguyên liệu trong danh sách
-        //        foreach (NguyenLieuDTO item in nguyenLieu)
-        //        {
-        //            int rowIndex = dgvKho.Rows.Add();  // Thêm một dòng mới vào DataGridView
-
-        //            // Gán giá trị cho từng ô trong dòng mới
-        //            dgvKho.Rows[rowIndex].Cells["MaNguyenLieu"].Value = item.MaNguyenLieu;
-        //            dgvKho.Rows[rowIndex].Cells["TenNguyenLieu"].Value = item.TenNguyenLieu;
-        //            dgvKho.Rows[rowIndex].Cells["TenDVT"].Value = item.TenDVT;
-        //            dgvKho.Rows[rowIndex].Cells["SoLuongTon"].Value = item.SoLuongTon;
-        //            dgvKho.Rows[rowIndex].Cells["TrangThai"].Value = item.TrangThai;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show("Không có dữ liệu để hiển thị.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //    }
-        //}
+        
         private void LoadDgvKho()
         {
             List<NguyenLieuDTO> nguyenLieu = BUS_Kho.HienThiDanhSachKhoCanNhap();
@@ -216,7 +178,7 @@ namespace WindowsFormsApplication1.GUI
 
         private void frmDatHang_Load(object sender, EventArgs e)
         {
-            
+            cmbNhaCungCap.SelectedIndex = 0;
         }
 
         private void btnThem_Click(object sender, EventArgs e)
@@ -247,6 +209,8 @@ namespace WindowsFormsApplication1.GUI
 
                 // Lấy mã nguyên liệu từ dòng được chọn
                 string maNguyenLieu = selectedRow.Cells["MaNguyenLieu"]?.Value?.ToString();
+                string tenNguyenLieu = selectedRow.Cells["TenNguyenLieu"]?.Value?.ToString();
+                string DVT = selectedRow.Cells["TenDVT"]?.Value?.ToString();
                 float donGia = float.TryParse(selectedRow.Cells["DonGia"]?.Value?.ToString(), out float parsedDonGia) ? parsedDonGia : 0;
 
                 // Lấy số lượng từ TextBox
@@ -277,7 +241,7 @@ namespace WindowsFormsApplication1.GUI
                     {
                         float tongGia = soLuong * donGia;
                         // Thêm dòng mới với trạng thái mặc định là "Đang đặt hàng"
-                        dgvChiTietPhieuNhap.Rows.Add(maPhieuNhapHang, maNguyenLieu, soLuong, donGia, tongGia, "Đang đặt hàng");
+                        dgvChiTietPhieuNhap.Rows.Add(maPhieuNhapHang, maNguyenLieu,tenNguyenLieu, soLuong, DVT, donGia, tongGia, "Đang đặt hàng");
                     }
 
                     // Reset số lượng sau khi thêm thành công
@@ -303,7 +267,7 @@ namespace WindowsFormsApplication1.GUI
         private void UpdateComboBoxState()
         {
             // Kiểm tra xem dgvChiTietPhieuNhap có dữ liệu hay không
-            if (dgvChiTietPhieuNhap.Rows.Count > 1)
+            if (dgvChiTietPhieuNhap.Rows.Count > 0)
             {
                 // Nếu có dữ liệu, khóa ComboBox
                 cmbNhaCungCap.Enabled = false;
@@ -357,6 +321,7 @@ namespace WindowsFormsApplication1.GUI
                 // Thông báo nếu không có hành động nào xảy ra
                 MessageBox.Show("Hủy thao tác xóa!");
             }
+            
         }
 
         private void btnXacNhan_Click(object sender, EventArgs e)
@@ -375,7 +340,7 @@ namespace WindowsFormsApplication1.GUI
                 string maPhieuNhapHang = txtMaPhieuNhap.Text;
                 string maNCC = cmbNhaCungCap.SelectedValue.ToString(); // Lấy mã nhà cung cấp
                 DateTime ngayNhap = DateTime.Now; // Ngày nhập hiện tại
-                string maNV = txtMaNV.Text;
+                //string maNV = txtMaNV.Text;
 
                 // Tính tổng tiền nhập cho từng dòng
                 float tongTienNhap = 0;
@@ -395,6 +360,7 @@ namespace WindowsFormsApplication1.GUI
 
                 // Có thể thêm logic để lưu vào cơ sở dữ liệu nếu cần
                 MessageBox.Show("Phiếu nhập đã được xác nhận và thêm vào danh sách!");
+                btnInHoaDon.Enabled = true;
             }
             else
             {
@@ -428,13 +394,19 @@ namespace WindowsFormsApplication1.GUI
             btnHuyPhieu.Enabled = true; // Kích hoạt nút Hủy Phiếu
             cmbNhaCungCap.Enabled = true; // Mở khóa ComboBox Nhà Cung Cấp
             dtpNgayNhap.Enabled = false;
+            btnHuy.Enabled = true;
+            btnThem.Enabled = true;
+            btnXoa.Enabled = true;
+            btnXacNhan.Enabled = true;
+            btnInHoaDon.Enabled = false;
+            isFiltered = false;
         }
 
 
         private void btnThanhToan_Click(object sender, EventArgs e)
         {
             string maPhieuNhapHang = txtMaPhieuNhap.Text;
-            string maNhanVien = txtMaNV.Text; // Ensure this is filled correctly in your form
+            string maNhanVien = maNV; // Ensure this is filled correctly in your form
             string maNCC = cmbNhaCungCap.SelectedValue.ToString(); // Assuming this returns the correct ID
             DateTime ngayNhap = dtpNgayNhap.Value;
 
@@ -477,8 +449,6 @@ namespace WindowsFormsApplication1.GUI
             string tenNhaCungCap = txtTenNCC.Text;
             string tenNganHang = txtNganHang.Text;
             string soTaiKhoan = txtSTK.Text;
-            frmQRCodeNcc frm = new frmQRCodeNcc(tenNhaCungCap, tenNganHang, soTaiKhoan, tongTienNhap);
-            frm.ShowDialog();
             string message = $"Nhà cung cấp yêu cầu thanh toán qua ngân hàng:\n\n" +
                              $"Tên ngân hàng: {tenNganHang}\n" +
                              $"Số tài khoản: {soTaiKhoan}\n\n" +
@@ -537,6 +507,8 @@ namespace WindowsFormsApplication1.GUI
             txtEmail.Text = " ";    
             txtNganHang.Text = " ";
             txtSTK.Text = " ";
+            txtMaNV.Text = maNV;
+            btnInHoaDon.Enabled = false;
         }
 
         private void btnHuyPhieu_Click(object sender, EventArgs e)
@@ -564,6 +536,8 @@ namespace WindowsFormsApplication1.GUI
 
                     MessageBox.Show("Phiếu đã được hủy.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+                btnInHoaDon.Enabled = false;
+                btnThanhToan.Enabled = false;
             }
             else
             {
@@ -583,6 +557,9 @@ namespace WindowsFormsApplication1.GUI
             dgvPhieuNhap.Rows.Clear();
             btnThanhToan.Enabled = false;
             btnHuyPhieu.Enabled = false;
+            btnInHoaDon.Enabled = false;
+            isFiltered = true;
+            
 
             // Ensure DataTable has the correct columns for MaPhieuNhapHang, MaNhanVien, MaNCC, NgayNhap, TongTienNhap
             foreach (DataRow row in searchResults.Rows)
@@ -603,9 +580,10 @@ namespace WindowsFormsApplication1.GUI
             {
                 // Lấy mã phiếu nhập từ dòng đã chọn
                 string maPhieuNhap = dgvPhieuNhap.Rows[e.RowIndex].Cells["MaPhieuNhapHang"].Value.ToString();
-
+                string maNhaCC = dgvPhieuNhap.Rows[e.RowIndex].Cells["MaNCC"].Value.ToString();
                 // Fill mã phiếu nhập vào TextBox
                 txtMaPhieuNhap.Text = maPhieuNhap;
+                cmbNhaCungCap.SelectedValue = maNhaCC;
 
                 // Lấy ngày nhập từ dòng đã chọn và fill vào DateTimePicker
                 DateTime ngayNhap;
@@ -619,7 +597,7 @@ namespace WindowsFormsApplication1.GUI
                 }
 
                 // Gọi phương thức lấy chi tiết phiếu nhập từ BUS
-                DataTable chiTietTable = bus.LayChiTietPhieuNhapTheoMa(maPhieuNhap);
+                DataTable chiTietTable = bus.LayChiTietPhieuNhapTheoMa(maPhieuNhap,maNhaCC);
 
                 // Kiểm tra xem chiTietTable có dữ liệu không
                 if (chiTietTable != null && chiTietTable.Rows.Count > 0)
@@ -633,7 +611,9 @@ namespace WindowsFormsApplication1.GUI
                         int index = dgvChiTietPhieuNhap.Rows.Add();
                         dgvChiTietPhieuNhap.Rows[index].Cells["MaPhieuNhapHang"].Value = row["MaPhieuNhapHang"];
                         dgvChiTietPhieuNhap.Rows[index].Cells["MaNguyenLieu"].Value = row["MaNguyenLieu"];
+                        dgvChiTietPhieuNhap.Rows[index].Cells["TenNguyenLieu"].Value = row["TenNguyenLieu"];
                         dgvChiTietPhieuNhap.Rows[index].Cells["SoLuong"].Value = row["SoLuong"];
+                        dgvChiTietPhieuNhap.Rows[index].Cells["TenDVT"].Value = row["TenDVT"];
                         dgvChiTietPhieuNhap.Rows[index].Cells["DonGia"].Value = row["DonGia"];
                         dgvChiTietPhieuNhap.Rows[index].Cells["TongGia"].Value = row["TongGia"];
                         dgvChiTietPhieuNhap.Rows[index].Cells["TrangThai"].Value = row["TrangThai"];
@@ -643,6 +623,7 @@ namespace WindowsFormsApplication1.GUI
                 {
                     MessageBox.Show("Không có chi tiết phiếu nhập nào cho mã phiếu này.");
                 }
+                btnInHoaDon.Enabled = true;
             }
         }
 
@@ -660,6 +641,130 @@ namespace WindowsFormsApplication1.GUI
         {
             List<string> trangThaiList = new List<string> { "Tất cả", "Còn Hàng", "Cần Nhập"};
             cmbTrangThai.DataSource = trangThaiList;
+        }
+        private bool isFiltered = false;  // Biến cờ để theo dõi trạng thái lọc
+
+        private void btnInHoaDon_Click(object sender, EventArgs e)
+        {
+            HoaDonDatHang hoaDonDatHang = LayHoaDonDatHang();
+
+            // Truyền dữ liệu vào DataSet hoặc thực hiện các thao tác in ấn
+            DataSet dsHoaDon = LayDuLieuHoaDon(hoaDonDatHang); // Ví dụ: chuyển sang DataSet nếu cần
+            frmRPHoaDonDatHang frm = new frmRPHoaDonDatHang(dsHoaDon, txtNganHang.Text,txtSTK.Text, txtTenNCC.Text);
+            frm.ShowDialog();
+            if (!isFiltered)
+            {
+                btnThanhToan.Enabled = true;  // Chỉ kích hoạt lại nếu chưa lọc
+            }
+        }
+        public DataSet LayDuLieuHoaDon(HoaDonDatHang hoaDonDatHang)
+        {
+            DataSet ds = new DataSet();
+
+            // Tạo bảng cho thông tin hóa đơn chính (HoaDonDHDTO)
+            DataTable dtHoaDon = new DataTable("HoaDon");
+            dtHoaDon.Columns.Add("NgayDat", typeof(DateTime));
+            dtHoaDon.Columns.Add("MaHD", typeof(string));
+            dtHoaDon.Columns.Add("TenNCC", typeof(string));
+            dtHoaDon.Columns.Add("Email", typeof(string));
+            dtHoaDon.Columns.Add("SDT", typeof(string));
+            dtHoaDon.Columns.Add("NganHang", typeof(string));
+            dtHoaDon.Columns.Add("STK", typeof(string));
+            dtHoaDon.Columns.Add("TenNV", typeof(string));
+            dtHoaDon.Columns.Add("QR", typeof(byte[]));
+            dtHoaDon.Columns.Add("TongTien", typeof(decimal));
+
+            // Thêm dữ liệu cho bảng HoaDon
+            DataRow rowHD = dtHoaDon.NewRow();
+            rowHD["NgayDat"] = hoaDonDatHang.hoaDonDHDTO.NgayDat;
+            rowHD["MaHD"] = hoaDonDatHang.hoaDonDHDTO.MaHD;
+            rowHD["TenNCC"] = hoaDonDatHang.hoaDonDHDTO.TenNCC;
+            rowHD["Email"] = hoaDonDatHang.hoaDonDHDTO.Email;
+            rowHD["SDT"] = hoaDonDatHang.hoaDonDHDTO.SDT;
+            rowHD["NganHang"] = hoaDonDatHang.hoaDonDHDTO.NganHang;
+            rowHD["STK"] = hoaDonDatHang.hoaDonDHDTO.STK;
+            rowHD["TenNV"] = hoaDonDatHang.hoaDonDHDTO.TenNV;
+            rowHD["TongTien"] = hoaDonDatHang.hoaDonDHDTO.TongTien;
+
+            dtHoaDon.Rows.Add(rowHD);
+            ds.Tables.Add(dtHoaDon);
+
+            // Tạo bảng cho chi tiết hóa đơn (List<HoaDonChitietDTO>)
+            DataTable dtChiTietHD = new DataTable("ChiTietHoaDon");
+            dtChiTietHD.Columns.Add("STT", typeof(int)); // Thêm cột STT
+            dtChiTietHD.Columns.Add("TenNguyenLieu", typeof(string));
+            dtChiTietHD.Columns.Add("DVT", typeof(string));
+            dtChiTietHD.Columns.Add("SoLuong", typeof(int));
+            dtChiTietHD.Columns.Add("DonGia", typeof(decimal));
+            dtChiTietHD.Columns.Add("ThanhTien", typeof(decimal));
+
+            // Thêm dữ liệu vào bảng ChiTietHoaDon, kèm số thứ tự (STT)
+            int stt = 1; // Bắt đầu số thứ tự từ 1
+            foreach (var chiTiet in hoaDonDatHang.hd)
+            {
+                DataRow rowCT = dtChiTietHD.NewRow();
+                rowCT["STT"] = stt++; // Tăng dần số thứ tự
+                rowCT["TenNguyenLieu"] = chiTiet.TenNguyenLieu;
+                rowCT["DVT"] = chiTiet.DVT;
+                rowCT["SoLuong"] = chiTiet.SoLuong;
+                rowCT["DonGia"] = chiTiet.DonGia;
+                rowCT["ThanhTien"] = chiTiet.ThanhTien;
+
+                dtChiTietHD.Rows.Add(rowCT);
+            }
+            ds.Tables.Add(dtChiTietHD);
+
+            return ds;
+        }
+        public HoaDonDatHang LayHoaDonDatHang()
+        {
+            HoaDonDatHang hoaDonDatHang = new HoaDonDatHang();
+            NhanVienBUS nhanVienBUS = new NhanVienBUS();
+            NhanVienDTO TenNV = nhanVienBUS.GetNhanVienByMaNV(txtMaNV.Text);
+            // Phần thông tin của HoaDonDHDTO từ TextBox hoặc các control khác
+            HoaDonDHDTO hoaDonDH = new HoaDonDHDTO
+            {
+                NgayDat = dtpNgayNhap.Value,
+                MaHD = txtMaPhieuNhap.Text, // Ví dụ: Lấy mã hóa đơn từ TextBox
+                TenNCC = txtTenNCC.Text,
+                Email = txtEmail.Text,
+                SDT = txtSDT.Text,
+                NganHang = txtNganHang.Text,
+                STK = txtSTK.Text,
+                TenNV = TenNV.TenNhanVien,  // Ví dụ: Lấy mã nhân viên từ TextBox
+                TongTien = 0 // Giá trị này sẽ tính toán dựa trên các chi tiết dưới đây
+            };
+
+            // Khởi tạo danh sách chi tiết hóa đơn
+            List<HoaDonChitietDTO> chiTietList = new List<HoaDonChitietDTO>();
+
+            // Lấy dữ liệu từ DataGridView dgvChiTietPhieuNhap
+            foreach (DataGridViewRow row in dgvChiTietPhieuNhap.Rows)
+            {
+                if (row.Cells["TenNguyenLieu"].Value != null)
+                {
+                    HoaDonChitietDTO chiTiet = new HoaDonChitietDTO
+                    {
+                        TenNguyenLieu = row.Cells["TenNguyenLieu"].Value.ToString(),
+                        DVT = row.Cells["TenDVT"].Value.ToString(),
+                        SoLuong = Convert.ToInt32(row.Cells["SoLuong"].Value),
+                        DonGia = Convert.ToDecimal(row.Cells["DonGia"].Value),
+                        ThanhTien = Convert.ToDecimal(row.Cells["TongGia"].Value)
+                    };
+
+                    // Tính tổng tiền cho hóa đơn
+                    hoaDonDH.TongTien += chiTiet.ThanhTien;
+
+                    // Thêm chi tiết vào danh sách
+                    chiTietList.Add(chiTiet);
+                }
+            }
+
+            // Gán thông tin hóa đơn và chi tiết vào đối tượng hoaDonDatHang
+            hoaDonDatHang.hoaDonDHDTO = hoaDonDH;
+            hoaDonDatHang.hd = chiTietList;
+
+            return hoaDonDatHang;
         }
 
     }
